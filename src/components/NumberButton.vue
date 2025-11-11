@@ -38,7 +38,7 @@ switch (props.color) {
     <button class="number-button" :style="'background-color:' + backgroundColor" @click="handleButtonClick">
         <md-ripple></md-ripple>
         <md-focus-ring style="--md-focus-ring-shape: 25px;"></md-focus-ring>
-        {{ props.display }}
+        {{ props.display?.replace(/\s/g, "") }}
     </button>
 </template>
 
