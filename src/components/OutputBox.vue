@@ -24,6 +24,7 @@ const prop = defineProps({
     padding: 20px;
     box-sizing: border-box;
     overflow-y: scroll;
+    word-break: break-all;
 }
 
 .output {

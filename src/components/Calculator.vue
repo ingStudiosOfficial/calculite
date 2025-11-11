@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, provide } from 'vue';
+import { ref, provide, onMounted } from 'vue';
 
 import NumPad from './NumPad.vue';
 import OutputBox from './OutputBox.vue';
@@ -16,6 +16,16 @@ interface Button {
 const KEYWORDS: string[] = [
     "CLEAR_ALL",
     "CALCULATE",
+    "BACKSPACE",
+    "PARENTHESES",
+];
+
+// Operators
+const OPERATORS: string[] = [
+    "/",
+    "*",
+    "-",
+    "+",
 ];
 
 const equation = ref<string[]>([]);
@@ -35,6 +45,7 @@ function handleButtonClick(props: any) {
     const buttonClickedObject: string = props.value;
     console.log('Button clicked value:', buttonClickedObject);
 
+    // Check for keywords
     if (KEYWORDS.includes(buttonClickedObject)) {
         switch (buttonClickedObject) {
             case "CLEAR_ALL":
@@ -44,6 +55,20 @@ function handleButtonClick(props: any) {
             case "CALCULATE":
                 calculatedResult.value = calculate(equation.value);
                 break;
+            case "BACKSPACE":
+                equation.value.pop();
+                displayEquation.value.pop();
+                break;
+            case "PARENTHESES":
+                if (OPERATORS.includes(equation.value[equation.value.length - 1] as string) || !equation.value[equation.value.length - 1]) {
+                    equation.value.push("(");
+                    displayEquation.value.push("(");
+                } else {
+                    equation.value.push(")");
+                    displayEquation.value.push(")");
+                }
+
+                break;
             default:
                 console.log('Unexpected keyword:', buttonClickedObject);
         }
@@ -51,9 +76,37 @@ function handleButtonClick(props: any) {
         return;
     }
 
+    // Push the value to the array in each equation
     equation.value.push(props.value);
     displayEquation.value.push(props.display);
 }
+
+function listenForInput() {
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            calculatedResult.value = calculate(equation.value);
+        } else if (e.key === 'Delete' || e.key === 'Escape') {
+            equation.value = [];
+            displayEquation.value = [];
+        } else if (e.key === 'Backspace') {
+            equation.value.pop();
+            displayEquation.value.pop();
+        } else if (e.key === '(' || e.key === ')') {
+            equation.value.push(e.key);
+            displayEquation.value.push(e.key);
+        } else if (OPERATORS.includes(e.key)) {
+            equation.value.push(e.key);
+            displayEquation.value.push(` ${e.key} `);
+        } else if (!isNaN(Number(e.key)) && e.key !== ' ') {
+            equation.value.push(e.key);
+            displayEquation.value.push(e.key);
+        }
+    });
+}
+
+onMounted(() => {
+    listenForInput();
+});
 </script>
 
 <template>

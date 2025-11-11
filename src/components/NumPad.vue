@@ -11,13 +11,13 @@ interface Button {
 
 const buttons = ref([
     {
-        value: "(",
-        display: "(",
-        color: "secondary",
+        value: "CLEAR_ALL",
+        display: "AC",
+        color: "primary",
     },
     {
-        value: ")",
-        display: ")",
+        value: "PARENTHESES",
+        display: "( )",
         color: "secondary",
     },
     {
@@ -26,8 +26,8 @@ const buttons = ref([
         color: "secondary",
     },
     {
-        value: "CLEAR_ALL",
-        display: "AC",
+        value: "/",
+        display: " ÷ ",
         color: "secondary",
     },
     {
@@ -46,8 +46,8 @@ const buttons = ref([
         color: "tertiary",
     },
     {
-        value: "/",
-        display: " ÷ ",
+        value: "*",
+        display: " × ",
         color: "secondary",
     },
     {
@@ -66,8 +66,8 @@ const buttons = ref([
         color: "tertiary",
     },
     {
-        value: "*",
-        display: " × ",
+        value: "-",
+        display: " - ",
         color: "secondary",
     },
     {
@@ -86,8 +86,8 @@ const buttons = ref([
         color: "tertiary",
     },
     {
-        value: "-",
-        display: " - ",
+        value: "+",
+        display: " + ",
         color: "secondary",
     },
     {
@@ -101,14 +101,14 @@ const buttons = ref([
         color: "tertiary",
     },
     {
+        value: "BACKSPACE",
+        display: "←",
+        color: "tertiary",
+    },
+    {
         value: "CALCULATE",
         display: "=",
         color: "primary",
-    },
-    {
-        value: "+",
-        display: " + ",
-        color: "secondary",
     },
 ]);
 

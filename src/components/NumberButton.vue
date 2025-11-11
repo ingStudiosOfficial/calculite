@@ -3,6 +3,7 @@ import { ref } from 'vue';
 
 import '@material/web/ripple/ripple.js';
 import '@material/web/focus/md-focus-ring.js';
+import '@material/web/icon/icon.js'
 
 const props = defineProps({
     value: String,
@@ -14,6 +15,14 @@ const emit = defineEmits(['button-click']);
 
 function handleButtonClick() {
     console.log('Button clicked!');
+
+    // Haptic feedback for mobile
+    if (props.value === 'CLEAR_ALL' || props.value === 'CALCULATE') {
+        navigator.vibrate([10, 50, 10]);
+    } else {
+        navigator.vibrate([10]);
+    }
+
     emit('button-click', props);
 }
 
@@ -38,7 +47,8 @@ switch (props.color) {
     <button class="number-button" :style="'background-color:' + backgroundColor" @click="handleButtonClick">
         <md-ripple></md-ripple>
         <md-focus-ring style="--md-focus-ring-shape: 25px;"></md-focus-ring>
-        {{ props.display?.replace(/\s/g, "") }}
+        <md-icon v-if="props.value === 'BACKSPACE'">backspace</md-icon>
+        <span v-else>{{ props.display?.trim() }}</span>
     </button>
 </template>
 
