@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 
 import Calculator from './components/Calculator.vue';
-import AlertDialog from './components/AlertDialog.vue';
+import ChromeWarning from './components/ChromeWarning.vue';
 
 function isChromium(): boolean {
 	const userAgent = navigator.userAgent;
@@ -12,7 +12,7 @@ function isChromium(): boolean {
 
 <template>
 	<div class="content-wrapper">
-		<AlertDialog v-if="!isChromium()"></AlertDialog>
+		<ChromeWarning v-if="!isChromium()"></ChromeWarning>
 		<Calculator v-else></Calculator>
 	</div>
 </template>

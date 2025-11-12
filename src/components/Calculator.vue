@@ -85,7 +85,9 @@ function handleButtonClick(props: any) {
 function listenForInput() {
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
-            calculatedResult.value = calculate(equation.value);
+            if (equation.value.length !== 0) {
+                calculatedResult.value = calculate(equation.value);
+            }
         } else if (e.key === 'Delete' || e.key === 'Escape') {
             equation.value = [];
             displayEquation.value = [];
@@ -98,6 +100,9 @@ function listenForInput() {
         } else if (OPERATORS.includes(e.key)) {
             equation.value.push(e.key);
             displayEquation.value.push(` ${e.key} `);
+        } else if (e.key === '%') {
+            equation.value.push(e.key);
+            displayEquation.value.push(e.key);
         } else if (!isNaN(Number(e.key)) && e.key !== ' ') {
             equation.value.push(e.key);
             displayEquation.value.push(e.key);
