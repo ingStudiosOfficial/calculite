@@ -45,8 +45,8 @@ switch (props.color) {
 
 <template>
     <button class="number-button" :style="'background-color:' + backgroundColor" @click="handleButtonClick">
-        <md-ripple></md-ripple>
-        <md-focus-ring style="--md-focus-ring-shape: 25px;"></md-focus-ring>
+        <md-ripple class="button-attachments"></md-ripple>
+        <md-focus-ring style="--md-focus-ring-shape: 25px;" class="button-attachments"></md-focus-ring>
         <md-icon v-if="props.value === 'BACKSPACE'">backspace</md-icon>
         <span v-else>{{ props.display?.trim() }}</span>
     </button>
@@ -55,10 +55,14 @@ switch (props.color) {
 <style scoped>
 .number-button {
     all: unset;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     position: relative;
     color: #000000;
     border-radius: 25px;
     text-align: center;
     font-size: 2em;
+    user-select: none;
 }
 </style>

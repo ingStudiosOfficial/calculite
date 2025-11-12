@@ -53,7 +53,9 @@ function handleButtonClick(props: any) {
                 displayEquation.value = [];
                 break;
             case "CALCULATE":
-                calculatedResult.value = calculate(equation.value);
+                if (equation.value.length !== 0) {
+                    calculatedResult.value = calculate(equation.value);
+                }
                 break;
             case "BACKSPACE":
                 equation.value.pop();
@@ -67,7 +69,6 @@ function handleButtonClick(props: any) {
                     equation.value.push(")");
                     displayEquation.value.push(")");
                 }
-
                 break;
             default:
                 console.log('Unexpected keyword:', buttonClickedObject);

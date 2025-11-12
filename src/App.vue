@@ -1,10 +1,19 @@
 <script setup lang="ts">
+import { ref } from 'vue';
+
 import Calculator from './components/Calculator.vue';
+import AlertDialog from './components/AlertDialog.vue';
+
+function isChromium(): boolean {
+	const userAgent = navigator.userAgent;
+	return userAgent.includes('Chrome') || userAgent.includes('Chromium');
+}
 </script>
 
 <template>
 	<div class="content-wrapper">
-		<Calculator></Calculator>
+		<AlertDialog v-if="!isChromium()"></AlertDialog>
+		<Calculator v-else></Calculator>
 	</div>
 </template>
 
