@@ -66,5 +66,6 @@ switch (props.color) {
     text-align: center;
     font-size: 2em;
     user-select: none;
+    overflow: hidden;
 }
 </style>

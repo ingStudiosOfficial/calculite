@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref, provide, onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 
-import NumPad from './NumPad.vue';
+import NumPadSci from './NumPadSci.vue';
 import OutputBox from './OutputBox.vue';
 
 import { calculate } from '../utilities/calculator_utils';
@@ -18,6 +18,16 @@ const KEYWORDS: string[] = [
     "CALCULATE",
     "BACKSPACE",
     "PARENTHESES",
+    "SQRT",
+    "CBRT",
+    "PI",
+    "FACTORIAL",
+    "SIN",
+    "COS",
+    "TAN",
+    "EULER",
+    "LOG",
+    "INFINITY",
 ];
 
 // Operators
@@ -70,6 +80,11 @@ function handleButtonClick(props: any) {
                     displayEquation.value.push(")");
                 }
                 break;
+            case "SQRT":
+                equation.value.push(Math.sqrt(Number.parseInt(buttonClickedObject)).toString());
+                equation.value.push("√");
+            case "CBRT":
+                equation.value.push(Math.sqrt(Number.parseInt(buttonClickedObject)).toString());
             default:
                 console.log('Unexpected keyword:', buttonClickedObject);
         }
@@ -118,7 +133,7 @@ onMounted(() => {
 <template>
     <div class="calculator-box">
         <OutputBox :equation="displayEquation" :latest-output="calculatedResult"></OutputBox>
-        <NumPad @button-click="handleButtonClick"></NumPad>
+        <NumPadSci @button-click="handleButtonClick"></NumPadSci>
     </div>
 </template>
 
