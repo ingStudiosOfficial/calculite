@@ -2,18 +2,11 @@
 import { ref } from 'vue';
 
 import Calculator from './components/Calculator.vue';
-import ChromeWarning from './components/ChromeWarning.vue';
-
-function isChromium(): boolean {
-	const userAgent = navigator.userAgent;
-	return userAgent.includes('Chrome') || userAgent.includes('Chromium');
-}
 </script>
 
 <template>
 	<div class="content-wrapper">
-		<ChromeWarning v-if="!isChromium()"></ChromeWarning>
-		<Calculator v-else></Calculator>
+		<Calculator></Calculator>
 	</div>
 </template>
 

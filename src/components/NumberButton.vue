@@ -17,10 +17,12 @@ function handleButtonClick() {
     console.log('Button clicked!');
 
     // Haptic feedback for mobile
-    if (props.value === 'CLEAR_ALL' || props.value === 'CALCULATE') {
-        navigator.vibrate([10, 50, 10]);
-    } else {
-        navigator.vibrate([10]);
+    if (navigator.vibrate) {
+        if (props.value === 'CLEAR_ALL' || props.value === 'CALCULATE') {
+            navigator.vibrate([10, 50, 10]);
+        } else {
+            navigator.vibrate([10]);
+        }
     }
 
     emit('button-click', props);
