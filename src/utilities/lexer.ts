@@ -1,9 +1,13 @@
+import { FUNCTIONS } from "./math_functions";
+
 export enum TokenType {
     Number,
     OpenParen,
     CloseParen,
     BinaryOperator,
     EndOfExpression,
+    MathFunction,
+    Delimiter,
 }
 
 export interface Token {
@@ -42,6 +46,8 @@ export function tokenize(sourceExpression: string): Token[] {
             tokens.push(token(src.shift(), TokenType.CloseParen));
         } else if (src[0] === "+" || src[0] === "-" || src[0] === "*" || src[0] === "/" || src[0] === "%") {
             tokens.push(token(src.shift(), TokenType.BinaryOperator));
+        } else if (src[0] === ",") {
+            tokens.push(token(src.shift(), TokenType.Delimiter));
         } else {
             if (src[0] === undefined) continue;
 
@@ -53,6 +59,18 @@ export function tokenize(sourceExpression: string): Token[] {
                 }
 
                 tokens.push(token(num, TokenType.Number))
+            } else if (isAlpha(src[0])) {
+                let alphaString = "";
+
+                while (src.length > 0 && isAlpha(src[0])) {
+                    alphaString += src.shift();
+                }
+
+                if (Object.keys(FUNCTIONS).includes(alphaString)) {
+                    tokens.push(token(alphaString, TokenType.MathFunction));
+                } else {
+                    console.error("Alphabetic characters are not supported.");   
+                }
             } else if (isSkippable(src[0])) {
                 src.shift();
             } else {

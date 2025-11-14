@@ -102,6 +102,26 @@ export default class Parser {
                 const value = this.parseAdditiveExpr();
                 this.expect(TokenType.CloseParen, "Expected closing parentheses.");
                 return value;
+            case TokenType.FunctionCall:
+                const functionToken = this.at().value;
+                this.eat();
+                this.expect(TokenType.OpenParen, "Expected opening parentheses.");
+                let params: Expresssion[] = [];
+                if (this.at().type !== TokenType.CloseParen) {
+                    while (true) {
+                        const arg = this.parseExpr();
+                        params.push(arg);
+                        if (this.at().type === TokenType.CloseParen) break;
+
+                        this.expect(TokenType.Delimiter, "Expected a delimiter (,) to separate arguments.");
+                    }
+                }
+                this.eat();
+                return {
+                    kind: "FunctionCall",
+                    name: functionToken,
+
+                }
             default:
                 console.error("Unexpected token found during parsing:", this.at());
                 return {

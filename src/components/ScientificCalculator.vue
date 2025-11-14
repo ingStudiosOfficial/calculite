@@ -28,6 +28,7 @@ const KEYWORDS: string[] = [
     "EULER",
     "LOG",
     "INFINITY",
+    "MOD",
 ];
 
 // Operators
@@ -80,11 +81,6 @@ function handleButtonClick(props: any) {
                     displayEquation.value.push(")");
                 }
                 break;
-            case "SQRT":
-                equation.value.push(Math.sqrt(Number.parseInt(buttonClickedObject)).toString());
-                equation.value.push("√");
-            case "CBRT":
-                equation.value.push(Math.sqrt(Number.parseInt(buttonClickedObject)).toString());
             default:
                 console.log('Unexpected keyword:', buttonClickedObject);
         }

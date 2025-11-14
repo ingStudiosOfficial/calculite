@@ -103,6 +103,9 @@ function listenForInput() {
         } else if (e.key === '%') {
             equation.value.push(e.key);
             displayEquation.value.push(e.key);
+        } else if (e.key === ".") {
+            equation.value.push(e.key);
+            displayEquation.value.push(e.key);
         } else if (!isNaN(Number(e.key)) && e.key !== ' ') {
             equation.value.push(e.key);
             displayEquation.value.push(e.key);

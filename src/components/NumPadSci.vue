@@ -66,8 +66,8 @@ const buttons = ref([
         color: "secondary",
     },
     {
-        value: "INFINITY",
-        display: "∾",
+        value: "MOD",
+        display: "mod",
         color: "secondary",
     },
     {
