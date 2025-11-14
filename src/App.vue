@@ -27,7 +27,6 @@ function switchCalculator(mode: string) {
 
 <template>
 	<div class="content-wrapper">
-		<!--
 		<div class="mode-expand">
 			<md-icon-button @click="toggleModes()">
 				<md-icon>
@@ -38,9 +37,8 @@ function switchCalculator(mode: string) {
 		<Transition name="mode-switcher">
 			<ModeSwitcher v-show="modesOpened" @mode-change="switchCalculator"></ModeSwitcher>
 		</Transition>
-		-->
 		<Calculator class="calculator" v-if="currentMode === 'standard'"></Calculator>
-		<!--<ScientificCalculator v-else-if="currentMode === 'scientific'"></ScientificCalculator>-->
+		<ScientificCalculator v-else-if="currentMode === 'scientific'"></ScientificCalculator>
 	</div>
 </template>
 
