@@ -28,8 +28,8 @@ export interface Program extends Stmt {
     body: Stmt[];
 }
 
-export interface FunctionCall extends Expression {
+export interface FunctionCall extends Stmt {
     kind: "FunctionCall";
     name: string;
-    params: any[];
+    params: Expression[];
 }

@@ -1,5 +1,4 @@
-import { type Stmt, type Expresssion, type BinaryExpression, type NumericLiteral, type Program } from "./ast";
-
+import { type Stmt, type Expression, type BinaryExpression, type NumericLiteral, type Program, type FunctionCall } from "./ast";
 import { tokenize, type Token, TokenType } from "./lexer";
 
 export default class Parser {
@@ -50,11 +49,11 @@ export default class Parser {
         }
     }
 
-    private parseExpr(): Expresssion {
+    private parseExpr(): Expression {
         return this.parseAdditiveExpr();
     }
 
-    private parseAdditiveExpr(): Expresssion {
+    private parseAdditiveExpr(): Expression {
         let left = this.parseMultiplicativeExpr();
 
         while (this.at().value === "+" || this.at().value === "-") {
@@ -71,7 +70,7 @@ export default class Parser {
         return left;
     }
 
-    private parseMultiplicativeExpr(): Expresssion {
+    private parseMultiplicativeExpr(): Expression {
         let left = this.parsePrimaryExpr();
 
         while (this.at().value === "*" || this.at().value === "/" || this.at().value === "%") {
@@ -88,7 +87,7 @@ export default class Parser {
         return left;
     }
 
-    private parsePrimaryExpr(): Expresssion {
+    private parsePrimaryExpr(): Expression {
         const tk = this.at().type;
 
         switch (tk) {
@@ -106,7 +105,7 @@ export default class Parser {
                 const functionToken = this.at().value;
                 this.eat();
                 this.expect(TokenType.OpenParen, "Expected opening parentheses.");
-                let params: Expresssion[] = [];
+                let params: Expression[] = [];
                 if (this.at().type !== TokenType.CloseParen) {
                     while (true) {
                         const arg = this.parseExpr();
@@ -120,8 +119,8 @@ export default class Parser {
                 return {
                     kind: "FunctionCall",
                     name: functionToken,
-
-                }
+                    params: params,
+                } as FunctionCall;
             default:
                 console.error("Unexpected token found during parsing:", this.at());
                 return {

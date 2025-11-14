@@ -18,17 +18,8 @@ const KEYWORDS: string[] = [
     "CALCULATE",
     "BACKSPACE",
     "PARENTHESES",
-    "SQRT",
-    "CBRT",
     "PI",
-    "FACTORIAL",
-    "SIN",
-    "COS",
-    "TAN",
     "EULER",
-    "LOG",
-    "INFINITY",
-    "MOD",
 ];
 
 // Operators
@@ -81,6 +72,12 @@ function handleButtonClick(props: any) {
                     displayEquation.value.push(")");
                 }
                 break;
+            case "PI":
+                equation.value.push("3.14159265359");
+                displayEquation.value.push("π");
+            case "EULER":
+                equation.value.push("2.71828");
+                displayEquation.value.push("𝑒");
             default:
                 console.log('Unexpected keyword:', buttonClickedObject);
         }
@@ -128,7 +125,7 @@ onMounted(() => {
 
 <template>
     <div class="calculator-box">
-        <OutputBox :equation="displayEquation" :latest-output="calculatedResult"></OutputBox>
+        <OutputBox :equation="displayEquation" :latest-output="calculatedResult" type="scientific"></OutputBox>
         <NumPadSci @button-click="handleButtonClick"></NumPadSci>
     </div>
 </template>
@@ -136,7 +133,7 @@ onMounted(() => {
 <style scoped>
 .calculator-box {
     width: 90vw;
-    height: 100%;
+    height: 90vh;
     background-color: transparent;
     display: grid;
     grid-template-columns: 1fr;

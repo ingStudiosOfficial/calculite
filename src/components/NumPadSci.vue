@@ -183,7 +183,7 @@ function handleButtonClick(props: any) {
 
 <template>
     <div class="numpad">
-        <NumberButton v-for="button in buttons" :value="button.value" :display="button.display" :color="button.color" @button-click="handleButtonClick"></NumberButton>
+        <NumberButton v-for="button in buttons" :value="button.value" :display="button.display" :color="button.color" type="scientific" @button-click="handleButtonClick"></NumberButton>
     </div>
 </template>
 

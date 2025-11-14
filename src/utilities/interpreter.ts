@@ -1,5 +1,6 @@
 import { type RuntimeVal, type NumberVal, MK_NUMBER, MK_NULL, type NullVal } from "./values";
-import { type BinaryExpression, type NumericLiteral, type Program, type Stmt } from "./ast";
+import { type BinaryExpression, type Expression, type FunctionCall, type NumericLiteral, type Program, type Stmt } from "./ast";
+import { FUNCTIONS } from "./math_functions";
 
 function evalProgram(program: Program): RuntimeVal {
     let lastEvaluated: RuntimeVal = MK_NULL();
@@ -45,6 +46,35 @@ function evalBinaryExpr(binop: BinaryExpression): RuntimeVal {
     return MK_NULL();
 }
 
+function evalFunction(name: string, ...args: Expression[]): NumberVal {
+    const evaluatedParams: number[] = [];
+
+    for (const arg of args) {
+        if (arg.kind === "NumericLiteral") {
+            evaluatedParams.push((arg as NumericLiteral).value);
+        } else if (arg.kind === "BinaryExpression") {
+            const evaluatedParam: number = evalBinaryExpr(arg as BinaryExpression).value;
+            evaluatedParams.push(evaluatedParam);
+        } else if (arg.kind === "FunctionCall") {
+            const fnCall = arg as FunctionCall; 
+            const evaluatedParam = evalFunction(fnCall.name, ...fnCall.params);
+            evaluatedParams.push(evaluatedParam.value);
+        }
+    }
+
+    if (!Object.keys(FUNCTIONS).includes(name)) {
+        console.error("Invalid function:", name);
+        return { value: 0, type: "number" };
+    }
+
+    const functionToCall: Function = FUNCTIONS[name] as Function;
+
+    return {
+        value: functionToCall(...evaluatedParams),
+        type: "number",
+    };
+}
+
 export function evaluate(astNode: Stmt): RuntimeVal {
     switch (astNode.kind) {
         case "NumericLiteral":
@@ -54,13 +84,15 @@ export function evaluate(astNode: Stmt): RuntimeVal {
             } as NumberVal;
         case "BinaryExpression":
             return evalBinaryExpr(astNode as BinaryExpression);
+        case "FunctionCall":
+            return evalFunction((astNode as FunctionCall).name, ...(astNode as FunctionCall).params);
         case "Program":
             return evalProgram(astNode as Program);
         default:
             console.error("This AST node has not yet been setup for interpretation.");
             return {
                 value: null,
-                type: "null"
+                type: "null",
             } as NullVal;
     }
 }

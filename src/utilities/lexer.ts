@@ -6,7 +6,7 @@ export enum TokenType {
     CloseParen,
     BinaryOperator,
     EndOfExpression,
-    MathFunction,
+    FunctionCall,
     Delimiter,
 }
 
@@ -67,7 +67,7 @@ export function tokenize(sourceExpression: string): Token[] {
                 }
 
                 if (Object.keys(FUNCTIONS).includes(alphaString)) {
-                    tokens.push(token(alphaString, TokenType.MathFunction));
+                    tokens.push(token(alphaString, TokenType.FunctionCall));
                 } else {
                     console.error("Alphabetic characters are not supported.");   
                 }

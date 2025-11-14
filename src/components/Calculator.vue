@@ -120,7 +120,7 @@ onMounted(() => {
 
 <template>
     <div class="calculator-box">
-        <OutputBox :equation="displayEquation" :latest-output="calculatedResult"></OutputBox>
+        <OutputBox :equation="displayEquation" :latest-output="calculatedResult" type="standard"></OutputBox>
         <NumPad @button-click="handleButtonClick"></NumPad>
     </div>
 </template>
@@ -128,7 +128,7 @@ onMounted(() => {
 <style scoped>
 .calculator-box {
     width: 90vw;
-    height: 100%;
+    height: 90vh;
     background-color: transparent;
     display: grid;
     grid-template-columns: 1fr;

@@ -37,7 +37,7 @@ function modulo(val: number, mod: number): number {
     return val % mod;
 }
 
-export const FUNCTIONS = {
+export const FUNCTIONS: { [key: string]: Function } = {
     "SQRT": squareRoot,
     "CBRT": cubeRoot,
     "FACTORIAL": factorial,

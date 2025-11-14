@@ -8,8 +8,10 @@ import Calculator from './components/Calculator.vue';
 import ModeSwitcher from './components/ModeSwitcher.vue';
 import ScientificCalculator from './components/ScientificCalculator.vue';
 
+import { getCalculatorMode, setCalculatorMode } from './utilities/calculator_utils';
+
 const modesOpened = ref(false);
-const currentMode = ref("standard");
+const currentMode = ref(getCalculatorMode());
 
 function toggleModes() {
 	if (navigator.vibrate) {
@@ -20,8 +22,9 @@ function toggleModes() {
 }
 
 function switchCalculator(mode: string) {
+	setCalculatorMode(mode);
 	currentMode.value = mode;
-	modesOpened.value = !modesOpened.value;
+	modesOpened.value = false;
 }
 </script>
 

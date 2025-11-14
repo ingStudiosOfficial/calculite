@@ -1,14 +1,23 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, type PropType } from 'vue';
 
 import '@material/web/ripple/ripple.js';
 import '@material/web/focus/md-focus-ring.js';
 import '@material/web/icon/icon.js'
 
+import { type CalculatorType } from '@/utilities/calculator_utils';
+
 const props = defineProps({
     value: String,
     display: String,
     color: String,
+    type: {
+        type: String as PropType<CalculatorType>,
+        required: true,
+        validator: (value: string) => {
+            return ["standard", "scientific"].includes(value);
+        },
+    },
 });
 
 const emit = defineEmits(['button-click']);
@@ -46,7 +55,7 @@ switch (props.color) {
 </script>
 
 <template>
-    <button class="number-button" :style="'background-color:' + backgroundColor" @click="handleButtonClick">
+    <button class="number-button" :class="type === 'standard' ? 'standard' : 'scientific'" :style="'background-color:' + backgroundColor" @click="handleButtonClick">
         <md-ripple class="button-attachments"></md-ripple>
         <md-focus-ring style="--md-focus-ring-shape: 25px;" class="button-attachments"></md-focus-ring>
         <md-icon v-if="props.value === 'BACKSPACE'">backspace</md-icon>
@@ -67,5 +76,13 @@ switch (props.color) {
     font-size: 2em;
     user-select: none;
     overflow: hidden;
+}
+
+.number-button.standard {
+    font-size: 2em;
+}
+
+.number-button.scientific {
+    font-size: 1.5em;
 }
 </style>
