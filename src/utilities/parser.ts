@@ -71,9 +71,26 @@ export default class Parser {
     }
 
     private parseMultiplicativeExpr(): Expression {
-        let left = this.parsePrimaryExpr();
+        let left = this.parseExponentialExpr();
 
         while (this.at().value === "*" || this.at().value === "/" || this.at().value === "%") {
+            const operator = this.eat().value;
+            const right = this.parsePrimaryExpr();
+            left = {
+                kind: "BinaryExpression",
+                left,
+                right,
+                operator,
+            } as BinaryExpression;
+        }
+
+        return left;
+    }
+
+    private parseExponentialExpr(): Expression {
+        let left = this.parsePrimaryExpr();
+
+        while (this.at().value === "**") {
             const operator = this.eat().value;
             const right = this.parsePrimaryExpr();
             left = {

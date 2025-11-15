@@ -22,6 +22,49 @@ const KEYWORDS: string[] = [
     "EULER",
 ];
 
+const FUNCTIONS = [
+    {
+        value: "SQRT",
+        display: "√",
+        color: "secondary",
+    },
+    {
+        value: "CBRT",
+        display: "∛",
+        color: "secondary",
+    },
+    {
+        value: "FACTORIAL",
+        display: "!",
+        color: "secondary",
+    },
+    {
+        value: "SIN",
+        display: "sin",
+        color: "secondary",
+    },
+    {
+        value: "COS",
+        display: "cos",
+        color: "secondary",
+    },
+    {
+        value: "TAN",
+        display: "tan",
+        color: "secondary",
+    },
+    {
+        value: "LOG",
+        display: "log",
+        color: "secondary",
+    },
+    {
+        value: "MOD",
+        display: "mod",
+        color: "secondary",
+    },
+]
+
 // Operators
 const OPERATORS: string[] = [
     "/",
@@ -82,6 +125,14 @@ function handleButtonClick(props: any) {
                 console.log('Unexpected keyword:', buttonClickedObject);
         }
 
+        return;
+    }
+
+    if (FUNCTIONS.map(func => func.value).includes(buttonClickedObject)) {
+        equation.value.push(props.value);
+        displayEquation.value.push(props.display);
+        equation.value.push("(");
+        displayEquation.value.push("(");
         return;
     }
 

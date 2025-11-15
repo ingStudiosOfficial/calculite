@@ -30,6 +30,8 @@ function evalNumericBinaryExpr(lhs: NumberVal, rhs: NumberVal, operator: string)
         result = lhs.value / rhs.value;
     } else if (operator === "%") {
         result = lhs.value % rhs.value;
+    } else if (operator === "**") {
+        result = lhs.value ** rhs.value;
     }
 
     return { value: result, type: "number" };
