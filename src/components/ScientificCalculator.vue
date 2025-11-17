@@ -3,8 +3,9 @@ import { onMounted, ref } from 'vue';
 
 import NumPadSci from './NumPadSci.vue';
 import OutputBox from './OutputBox.vue';
+import MemoryBox from './MemoryBox.vue';
 
-import { calculate } from '../utilities/calculator_utils';
+import { calculate, type ResultObject } from '../utilities/calculator_utils';
 
 interface Button {
     value: string;
@@ -70,8 +71,8 @@ const OPERATORS: string[] = [
 
 const equation = ref<string[]>([]);
 const displayEquation = ref<string[]>([]);
-
 const calculatedResult = ref(0);
+const resultToSend = ref<ResultObject>({ value: "0" });
 
 // Handle events bubbled up from NumPad
 function handleButtonClick(props: any) {
@@ -95,6 +96,7 @@ function handleButtonClick(props: any) {
             case "CALCULATE":
                 if (equation.value.length !== 0) {
                     calculatedResult.value = calculate(equation.value);
+                    sendToMemory(calculatedResult.value);
                 }
                 break;
             case "BACKSPACE":
@@ -143,6 +145,7 @@ function listenForInput() {
         if (e.key === 'Enter') {
             if (equation.value.length !== 0) {
                 calculatedResult.value = calculate(equation.value);
+                sendToMemory(calculatedResult.value);
             }
         } else if (e.key === 'Delete' || e.key === 'Escape') {
             equation.value = [];
@@ -172,6 +175,10 @@ function listenForInput() {
     });
 }
 
+function sendToMemory(newValue: number) {
+    resultToSend.value = { value: newValue.toString() };
+}
+
 onMounted(() => {
     listenForInput();
 });
@@ -180,7 +187,10 @@ onMounted(() => {
 <template>
     <div class="calculator-box">
         <OutputBox :equation="displayEquation" :latest-output="calculatedResult" type="scientific"></OutputBox>
-        <NumPadSci @button-click="handleButtonClick"></NumPadSci>
+        <div class="bottom-container">
+            <MemoryBox :add-result="resultToSend" class="memory-box"></MemoryBox>
+            <NumPadSci @button-click="handleButtonClick" class="numpad"></NumPadSci>
+        </div>
     </div>
 </template>
 
@@ -191,7 +201,25 @@ onMounted(() => {
     background-color: transparent;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 4fr;
+    grid-template-rows: minmax(0, 1fr) minmax(0, 4fr);
     gap: 10px;
+}
+
+.memory-box {
+    width: 100%;
+    height: 100%;
+}
+
+.bottom-container {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    gap: 10px;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+.numpad {
+    width: 100%;
+    height: 100%;
 }
 </style>

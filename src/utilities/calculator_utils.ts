@@ -3,6 +3,10 @@ import { evaluate } from './interpreter';
 
 export type CalculatorType = "standard" | "scientific";
 
+export interface ResultObject {
+    value: string
+}
+
 export function calculate(equation: string[]): number {
     let result;
 
@@ -40,4 +44,18 @@ export function getCalculatorMode(): string {
         default:
             return "standard";
     }
+}
+
+export function saveResults(results: string[]) {
+    localStorage.setItem('results', JSON.stringify(results.slice(0, 10)));
+}
+
+export function fetchResults(): string[] {
+    const results = localStorage.getItem('results');
+
+    if (!results) {
+        return [];
+    }
+
+    return JSON.parse(results).slice(0, 10);
 }
