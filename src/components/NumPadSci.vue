@@ -11,13 +11,13 @@ interface Button {
 
 const buttons = ref([
     {
-        value: "SQRT",
-        display: "√",
+        value: "PRT",
+        display: "prt",
         color: "secondary",
     },
     {
-        value: "CBRT",
-        display: "∛",
+        value: ",",
+        display: ", ",
         color: "secondary",
     },
     {

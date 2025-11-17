@@ -24,13 +24,8 @@ const KEYWORDS: string[] = [
 
 const FUNCTIONS = [
     {
-        value: "SQRT",
-        display: "√",
-        color: "secondary",
-    },
-    {
-        value: "CBRT",
-        display: "∛",
+        value: "PRT",
+        display: "prt",
         color: "secondary",
     },
     {
@@ -118,9 +113,11 @@ function handleButtonClick(props: any) {
             case "PI":
                 equation.value.push("3.14159265359");
                 displayEquation.value.push("π");
+                break;
             case "EULER":
                 equation.value.push("2.71828");
                 displayEquation.value.push("𝑒");
+                break;
             default:
                 console.log('Unexpected keyword:', buttonClickedObject);
         }
@@ -159,7 +156,13 @@ function listenForInput() {
         } else if (OPERATORS.includes(e.key)) {
             equation.value.push(e.key);
             displayEquation.value.push(` ${e.key} `);
+        } else if (e.key === ',') {
+            equation.value.push(e.key);
+            displayEquation.value.push(`${e.key} `);
         } else if (e.key === '%') {
+            equation.value.push(e.key);
+            displayEquation.value.push(e.key);
+        } else if (e.key === ".") {
             equation.value.push(e.key);
             displayEquation.value.push(e.key);
         } else if (!isNaN(Number(e.key)) && e.key !== ' ') {

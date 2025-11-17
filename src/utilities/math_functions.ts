@@ -1,7 +1,3 @@
-function squareRoot(val: number): number {
-    return Math.sqrt(val);
-}
-
 function cubeRoot(val: number): number {
     return Math.cbrt(val);
 }
@@ -37,8 +33,13 @@ function modulo(val: number, mod: number): number {
     return val % mod;
 }
 
+function powerRoot(base: number, root: number) {
+    const power = 1 / root;
+    return base ** power;
+}
+
 export const FUNCTIONS: { [key: string]: Function } = {
-    "SQRT": squareRoot,
+    "PRT": powerRoot,
     "CBRT": cubeRoot,
     "FACTORIAL": factorial,
     "SIN": sin,
