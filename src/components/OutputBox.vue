@@ -47,7 +47,7 @@ const props = defineProps({
 }
 
 .output.scientific {
-    font-size: 1em;
+    font-size: 2em;
 }
 
 .equation {
@@ -61,6 +61,6 @@ const props = defineProps({
 }
 
 .equation.scientific {
-    font-size: 2.5em;
+    font-size: 3em;
 }
 </style>

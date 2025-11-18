@@ -33,21 +33,10 @@ function switchMode(mode: string) {
                 <md-icon slot="icon">science</md-icon>
                 Scientific
             </md-primary-tab>
+
+            <!-- Add units later (autorenew) -->
         </md-tabs>
         <md-divider></md-divider>
-        <!--
-        <md-icon-button class="mode-button" @click="switchMode('standard')">
-            <md-icon>calculate</md-icon>
-        </md-icon-button>
-        <md-icon-button class="mode-button" @click="switchMode('scientific')">
-            <md-icon>science</md-icon>
-        </md-icon-button>
-        -->
-        <!--
-        <md-icon-button class="mode-button" @click="switchMode('unit')">
-            <md-icon>autorenew</md-icon>
-        </md-icon-button>
-        -->
     </div>
 </template>
 

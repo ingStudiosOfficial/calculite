@@ -75,7 +75,7 @@ export default class Parser {
 
         while (this.at().value === "*" || this.at().value === "/" || this.at().value === "%") {
             const operator = this.eat().value;
-            const right = this.parsePrimaryExpr();
+            const right = this.parseExponentialExpr();
             left = {
                 kind: "BinaryExpression",
                 left,

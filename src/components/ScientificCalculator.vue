@@ -67,6 +67,8 @@ const OPERATORS: string[] = [
     "*",
     "-",
     "+",
+    "**",
+    "^",
 ];
 
 const equation = ref<string[]>([]);
@@ -159,7 +161,11 @@ function listenForInput() {
             equation.value.push(e.key);
             displayEquation.value.push(e.key);
         } else if (OPERATORS.includes(e.key)) {
-            equation.value.push(e.key);
+            if (e.key === "^") {
+                equation.value.push("**");
+            } else {
+                equation.value.push(e.key);
+            }
             displayEquation.value.push(` ${e.key} `);
         } else if (e.key === ',') {
             equation.value.push(e.key);

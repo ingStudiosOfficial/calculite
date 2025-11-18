@@ -13,6 +13,10 @@ const emit = defineEmits(['emitResult']);
 const resultsToDisplay = ref<string[]>([]);
 
 function addResultToEquation(result: string) {
+    if (navigator.vibrate) {
+        navigator.vibrate([10]);
+    }
+    
     emit('emitResult', result);
 }
 

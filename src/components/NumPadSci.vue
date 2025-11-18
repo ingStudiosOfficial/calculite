@@ -27,7 +27,7 @@ const buttons = ref([
     },
     {
         value: "**",
-        display: "^",
+        display: " ^ ",
         color: "secondary",
     },
     {
