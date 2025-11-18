@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@material/web": "^2.4.1",
+    "convert": "^5.13.1",
     "vue": "^3.5.22"
   },
   "devDependencies": {

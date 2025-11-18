@@ -142,7 +142,9 @@ function handleButtonClick(props: any) {
 
 function listenForInput() {
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
+        if (e.key === 'Tab') {
+            return;
+        } else if (e.key === 'Enter') {
             if (equation.value.length !== 0) {
                 calculatedResult.value = calculate(equation.value);
                 sendToMemory(calculatedResult.value);
@@ -179,6 +181,11 @@ function sendToMemory(newValue: number) {
     resultToSend.value = { value: newValue.toString() };
 }
 
+function addResultFromMemory(result: string) {
+    equation.value.push(result);
+    displayEquation.value.push(result);
+}
+
 onMounted(() => {
     listenForInput();
 });
@@ -188,7 +195,7 @@ onMounted(() => {
     <div class="calculator-box">
         <OutputBox :equation="displayEquation" :latest-output="calculatedResult" type="scientific"></OutputBox>
         <div class="bottom-container">
-            <MemoryBox :add-result="resultToSend" class="memory-box"></MemoryBox>
+            <MemoryBox :add-result="resultToSend" @emit-result="addResultFromMemory" class="memory-box"></MemoryBox>
             <NumPadSci @button-click="handleButtonClick" class="numpad"></NumPadSci>
         </div>
     </div>

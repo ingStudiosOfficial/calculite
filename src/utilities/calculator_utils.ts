@@ -41,6 +41,8 @@ export function getCalculatorMode(): string {
             return "standard";
         case "scientific":
             return "scientific";
+        case "unit":
+            return "unit";
         default:
             return "standard";
     }

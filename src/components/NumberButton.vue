@@ -3,7 +3,7 @@ import { ref, type PropType } from 'vue';
 
 import '@material/web/ripple/ripple.js';
 import '@material/web/focus/md-focus-ring.js';
-import '@material/web/icon/icon.js'
+import '@material/web/icon/icon.js';
 
 import { type CalculatorType } from '@/utilities/calculator_utils';
 
@@ -75,7 +75,6 @@ switch (props.color) {
     text-align: center;
     font-size: 2em;
     user-select: none;
-    overflow: hidden;
 }
 
 .number-button.standard {

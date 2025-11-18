@@ -84,7 +84,9 @@ function handleButtonClick(props: any) {
 
 function listenForInput() {
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
+        if (e.key === 'Tab') {
+            return;
+        } else if (e.key === 'Enter') {
             if (equation.value.length !== 0) {
                 calculatedResult.value = calculate(equation.value);
             }

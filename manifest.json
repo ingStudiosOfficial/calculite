@@ -3,12 +3,12 @@
   "name": "Calculite",
   "icons": [
     {
-      "src": "/public/calculite_logo.png",
+      "src": "/calculite/calculite_logo.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/public/calculite_logo.png",
+      "src": "/calculite/calculite_logo.png",
       "sizes": "512x512",
       "type": "image/png"
     }
