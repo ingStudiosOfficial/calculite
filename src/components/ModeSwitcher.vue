@@ -33,10 +33,11 @@ function switchMode(mode: string) {
                 <md-icon slot="icon">science</md-icon>
                 Scientific
             </md-primary-tab>
-
-            <!-- Add units later (autorenew) -->
+            <md-primary-tab :selected="currentMode === 'conversion'" @click="switchMode('conversion')">
+                <md-icon slot="icon">autorenew</md-icon>
+                Conversion
+            </md-primary-tab>
         </md-tabs>
-        <md-divider></md-divider>
     </div>
 </template>
 

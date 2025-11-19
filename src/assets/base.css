@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700');
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap');
 
 :root {
-	--md-ref-typeface-brand: 'Google Sans';
-    --md-ref-typeface-plain: 'Google Sans';
+	--md-ref-typeface-brand: 'Google Sans Flex';
+    --md-ref-typeface-plain: 'Google Sans Flex';
 	--md-sys-color-primary: rgb(0 106 96);
 	--md-sys-color-surface-tint: rgb(0 106 96);
 	--md-sys-color-on-primary: rgb(255 255 255);
@@ -85,8 +85,8 @@
 
 @media (prefers-color-scheme: dark) {
 	:root {
-		--md-ref-typeface-brand: 'Google Sans';
-		--md-ref-typeface-plain: 'Google Sans';
+		--md-ref-typeface-brand: 'Google Sans Flex';
+		--md-ref-typeface-plain: 'Google Sans Flex';
 		--md-sys-color-primary: rgb(130 213 200);
 		--md-sys-color-surface-tint: rgb(130 213 200);
 		--md-sys-color-on-primary: rgb(0 55 49);

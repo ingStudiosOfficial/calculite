@@ -24,7 +24,7 @@ function switchCalculator(mode: string) {
 		<ModeSwitcher @mode-change="switchCalculator"></ModeSwitcher>
 		<Calculator class="calculator" v-if="currentMode === 'standard'"></Calculator>
 		<ScientificCalculator class="calculator" v-else-if="currentMode === 'scientific'"></ScientificCalculator>
-		<!--<UnitConverter class="unit-converter" v-else-if="currentMode === 'unit'"></UnitConverter>-->
+		<UnitConverter class="calculator unit-converter" v-else-if="currentMode === 'conversion'"></UnitConverter>
 	</div>
 </template>
 
@@ -43,12 +43,16 @@ function switchCalculator(mode: string) {
 .calculator {
 	flex: 1 1 auto;
 	min-height: 0;
-	transition: all 0.3s ease;
+	transition: all var(--md-spring-expressive-effects-slow-duration) var(--md-spring-expressive-effects-slow);
+	width: 90vw;
 }
 
 .unit-converter {
 	display: flex;
 	flex-direction: row;
+	align-items: stretch;
+    justify-content: center;
+	padding: 0;
 }
 
 .mode-expand {
