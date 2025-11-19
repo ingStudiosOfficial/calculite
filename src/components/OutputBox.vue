@@ -37,7 +37,7 @@ const props = defineProps({
 }
 
 .output {
-    color: var(--md-sys-color-outline);
+    color: var(--md-sys-color-on-primary-container);
     font-size: 2em;
     margin: 0;
 }

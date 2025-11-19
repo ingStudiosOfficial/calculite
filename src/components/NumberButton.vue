@@ -84,4 +84,10 @@ switch (props.color) {
 .number-button.scientific {
     font-size: 1.5em;
 }
+
+@media (prefers-color-scheme: dark) {
+    .number-button {
+        color: #ffffff;
+    }
+}
 </style>
