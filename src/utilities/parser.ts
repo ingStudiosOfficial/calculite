@@ -113,11 +113,13 @@ export default class Parser {
                     kind: "NumericLiteral",
                     value: parseFloat(this.eat().value),
                 } as NumericLiteral;
+
             case TokenType.OpenParen:
                 this.eat();
                 const value = this.parseAdditiveExpr();
                 this.expect(TokenType.CloseParen, "Expected closing parentheses.");
                 return value;
+
             case TokenType.FunctionCall:
                 const functionToken = this.at().value;
                 this.eat();
@@ -132,12 +134,15 @@ export default class Parser {
                         this.expect(TokenType.Delimiter, "Expected a delimiter (,) to separate arguments.");
                     }
                 }
+                
                 this.eat();
+
                 return {
                     kind: "FunctionCall",
                     name: functionToken,
                     params: params,
                 } as FunctionCall;
+
             default:
                 console.error("Unexpected token found during parsing:", this.at());
                 return {

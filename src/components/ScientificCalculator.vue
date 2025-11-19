@@ -95,16 +95,20 @@ function handleButtonClick(props: any) {
                 equation.value = [];
                 displayEquation.value = [];
                 break;
+
             case "CALCULATE":
                 if (equation.value.length !== 0) {
                     calculatedResult.value = calculate(equation.value);
                     sendToMemory(calculatedResult.value);
                 }
+                
                 break;
+
             case "BACKSPACE":
                 equation.value.pop();
                 displayEquation.value.pop();
                 break;
+
             case "PARENTHESES":
                 if (OPERATORS.includes(equation.value[equation.value.length - 1] as string) || !equation.value[equation.value.length - 1]) {
                     equation.value.push("(");
@@ -113,15 +117,19 @@ function handleButtonClick(props: any) {
                     equation.value.push(")");
                     displayEquation.value.push(")");
                 }
+
                 break;
+                
             case "PI":
                 equation.value.push("3.14159265359");
                 displayEquation.value.push("π");
                 break;
+
             case "EULER":
                 equation.value.push("2.71828");
                 displayEquation.value.push("𝑒");
                 break;
+
             default:
                 console.log('Unexpected keyword:', buttonClickedObject);
         }

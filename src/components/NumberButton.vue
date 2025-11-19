@@ -43,12 +43,15 @@ switch (props.color) {
     case 'primary':
         backgroundColor.value = 'var(--md-sys-color-primary-container)';
         break;
+
     case 'secondary':
         backgroundColor.value = 'var(--md-sys-color-secondary-container)';
         break;
+
     case 'tertiary':
         backgroundColor.value = 'var(--md-sys-color-tertiary-container)';
         break;
+        
     default:
         backgroundColor.value = '#ffffff';
 }

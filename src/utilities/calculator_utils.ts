@@ -12,7 +12,8 @@ export interface Unit {
     name: string;
     type: UnitType;
     symbol: string;
-    ofbase: number;
+    toBase: (value: number) => number;
+    fromBase: (value: number) => number;
 }
 
 export interface ConvertObject {
@@ -21,102 +22,27 @@ export interface ConvertObject {
 }
 
 export const LENGTH_UNITS: Unit[] = [
-    {
-        name: "milliters",
-        type: "length",
-        symbol: "mm",
-        ofbase: 0.001,
-    },
-    {
-        name: "centimeters",
-        type: "length",
-        symbol: "cm",
-        ofbase: 0.01,
-    },
-    {
-        name: "decimeters",
-        type: "length",
-        symbol: "dm",
-        ofbase: 0.1,
-    },
-    {
-        name: "meters",
-        type: "length",
-        symbol: "m",
-        ofbase: 1,
-    },
-    {
-        name: "kilometers",
-        type: "length",
-        symbol: "km",
-        ofbase: 10,
-    },
+    linearUnit("millimeters", "length", "mm", 0.001),
+    linearUnit("centimeters", "length", "cm", 0.01),
+    linearUnit("decimeters", "length", "dm", 0.1),
+    linearUnit("meters", "length", "m", 1),
+    linearUnit("kilometers", "length", "km", 1000),
 ];
 
 export const AREA_UNITS: Unit[] = [
-    {
-        name: "square millimeters",
-        type: "area",
-        symbol: "mm²",
-        ofbase: 1e-6,
-    },
-    {
-        name: "square centimeters",
-        type: "area",
-        symbol: "cm²,",
-        ofbase: 0.0001,
-    },
-    {
-        name: "square decimeters",
-        type: "area",
-        symbol: "dm²",
-        ofbase: 0.01,
-    },
-    {
-        name: "square meters",
-        type: "area",
-        symbol: "m²",
-        ofbase: 1,
-    },
-    {
-        name: "square kilometers",
-        type: "area",
-        symbol: "km²",
-        ofbase: 1000000,
-    },
+    linearUnit("square millimeters", "area", "mm²", 1e-6),
+    linearUnit("square centimeters", "area", "cm²", 0.0001),
+    linearUnit("square decimeters", "area", "dm²", 0.01),
+    linearUnit("square meters", "area", "m²", 1),
+    linearUnit("square kilometers", "area", "km²", 1_000_000),
 ];
 
 export const VOLUME_UNITS: Unit[] = [
-    {
-        name: "cubic millimeters",
-        type: "volume",
-        symbol: "mm³",
-        ofbase: 1e-9,
-    },
-    {
-        name: "cubic centimeters",
-        type: "volume",
-        symbol: "cm³",
-        ofbase: 1e-6,
-    },
-    {
-        name: "cubic decimeters",
-        type: "volume",
-        symbol: "dm³",
-        ofbase: 0.001,
-    },
-    {
-        name: "cubic meters",
-        type: "volume",
-        symbol: "m³",
-        ofbase: 1,
-    },
-    {
-        name: "cubic kilometers",
-        type: "volume",
-        symbol: "km³",
-        ofbase: 1e+9,
-    },
+    linearUnit("cubic millimeters", "volume", "mm³", 1e-9),
+    linearUnit("cubic centimeters", "volume", "cm³", 1e-6),
+    linearUnit("cubic decimeters", "volume", "dm³", 0.001),
+    linearUnit("cubic meters", "volume", "m³", 1),
+    linearUnit("cubic kilometers", "volume", "km³", 1e9),
 ];
 
 export const TEMPERATURE_UNITS: Unit[] = [
@@ -124,21 +50,34 @@ export const TEMPERATURE_UNITS: Unit[] = [
         name: "degrees celcius",
         type: "temperature",
         symbol: "°C",
-        ofbase: 1,
+        toBase: (v) => v + 273.15,
+        fromBase: (v) => v - 273.15,
     },
     {
         name: "degrees fahrenheit",
         type: "temperature",
         symbol: "°F",
-        ofbase: -17.2222,
+        toBase: (v) => (v - 32) * 5/9 + 273.15,
+        fromBase: (v) => (v - 273.15) * 9/5 + 32,
     },
     {
-        name: "kelvinj",
-        type: "volume",
+        name: "kelvin",
+        type: "temperature",
         symbol: "K",
-        ofbase: -272.15,
+        toBase: (v) => v,
+        fromBase: (v) => v,
     },
 ];
+
+function linearUnit(name: string, type: UnitType, symbol: string, ofbase: number): Unit {
+    return {
+        name,
+        type,
+        symbol,
+        toBase: (v) => v * ofbase,
+        fromBase: (v) => v / ofbase,
+    };
+}
 
 export function calculate(equation: string[]): number {
     let result;
@@ -196,17 +135,8 @@ export function fetchResults(): string[] {
 }
 
 export function convertUnits(from: ConvertObject, to: Unit): number {
-    if (!from || !to) {
-        return 0;
-    }
+    const value = parseFloat(from.value);
 
-    const fromNumber: number = Number(from.value);
-
-    const fromBase: number = from.unit.ofbase;
-    const toBase: number = to.ofbase;
-
-    const result: number = (fromNumber * fromBase) * toBase;
-    console.log('Result:', result);
-
-    return result;
+    const valueInBase = from.unit.toBase(value);
+    return to.fromBase(valueInBase);
 }

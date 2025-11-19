@@ -84,12 +84,16 @@ export function evaluate(astNode: Stmt): RuntimeVal {
                 value: ((astNode as NumericLiteral).value),
                 type: "number"
             } as NumberVal;
+
         case "BinaryExpression":
             return evalBinaryExpr(astNode as BinaryExpression);
+
         case "FunctionCall":
             return evalFunction((astNode as FunctionCall).name, ...(astNode as FunctionCall).params);
+
         case "Program":
             return evalProgram(astNode as Program);
+            
         default:
             console.error("This AST node has not yet been setup for interpretation.");
             return {

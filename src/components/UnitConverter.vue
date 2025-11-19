@@ -119,7 +119,6 @@ function convert() {
 }
 
 .unit-select {
-    width: 50px;
     --md-outlined-select-text-field-container-shape: 25px;
 }
 
