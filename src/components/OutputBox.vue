@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { type PropType } from 'vue';
+import { type PropType, ref, watch } from 'vue';
 
 import { type CalculatorType } from '@/utilities/calculator_utils';
 
 const props = defineProps({
     equation: Array,
-    latestOutput: Number,
+    latestOutput: {
+        type: Number,
+        required: true,
+    },
     type: {
         type: String as PropType<CalculatorType>,
         required: true,
@@ -14,11 +17,25 @@ const props = defineProps({
         },
     },
 });
+
+const resultToDisplay = ref<string>(props.latestOutput?.toString() || '');
+
+
+
+watch(() => props.latestOutput, (newValue: number) => {
+    switch (newValue) {
+        case 67:
+            resultToDisplay.value = "six seven";
+            break;
+        default:
+            resultToDisplay.value = newValue.toString();
+    }
+});
 </script>
 
 <template>
     <div class="output-field">
-        <p class="output" :class="type === 'standard' ? 'standard' : 'scientific'">{{ $props.latestOutput }}</p>
+        <p class="output" :class="type === 'standard' ? 'standard' : 'scientific'">{{ resultToDisplay }}</p>
         <p class="equation" :class="type === 'standard' ? 'standard' : 'scientific'">{{ $props.equation?.join("") }}</p>
     </div>
 </template>
