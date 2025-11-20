@@ -8,6 +8,12 @@ export interface ResultObject {
     value: string;
 }
 
+export interface ResultItem {
+    value: string;
+    index: number;
+    pinned: boolean;
+}
+
 export interface Unit {
     name: string;
     type: UnitType;
@@ -139,4 +145,40 @@ export function convertUnits(from: ConvertObject, to: Unit): number {
 
     const valueInBase = from.unit.toBase(value);
     return to.fromBase(valueInBase);
+}
+
+export function fetchPinnedResults(): string[] {
+    const results = localStorage.getItem('pinned_results');
+
+    if (!results) {
+        return [];
+    }
+
+    return JSON.parse(results).slice(0, 10);
+}
+
+export function pinResult(result: string) {
+    console.log('Pinning result:', result);
+    const pinnedItems: string[] = JSON.parse(localStorage.getItem('pinned_results') || "[]");
+    if (!pinnedItems.includes(result)) pinnedItems.unshift(result);
+    localStorage.setItem("pinned_results", JSON.stringify(pinnedItems.slice(0, 10)));
+}
+
+export function unpinResult(result: string, index: number) {
+    console.log('Unpinning result:', result, index);
+    const pinnedItems: string[] = JSON.parse(localStorage.getItem('pinned_results') || "[]");
+    pinnedItems.splice(index, 1);
+    localStorage.setItem("pinned_results", JSON.stringify(pinnedItems));
+
+    const allResults: string[] = fetchResults();
+    if (!allResults.includes(result)) allResults.unshift(result);
+    localStorage.setItem("results", JSON.stringify(allResults.slice(0, 10)));
+}
+
+export function deleteResult(index: number, pinned: boolean) {
+    console.log('Deleting result:', index, pinned);
+    const key = pinned ? "pinned_results" : "results";
+    const results: string[] = JSON.parse(localStorage.getItem(key) || "[]");
+    results.splice(index, 1);
+    localStorage.setItem(key, JSON.stringify(results));
 }

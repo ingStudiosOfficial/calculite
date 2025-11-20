@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 import '@material/web/icon/icon.js';
 import '@material/web/tabs/tabs.js';
@@ -10,6 +10,7 @@ import { getCalculatorMode } from '@/utilities/calculator_utils';
 const emit = defineEmits(['mode-change']);
 
 const currentMode = ref<string>(getCalculatorMode());
+const hideInstall = ref<boolean>(false);
 
 function switchMode(mode: string) {
     console.log('Switching to:', mode);
@@ -20,6 +21,43 @@ function switchMode(mode: string) {
 
     emit('mode-change', mode);
 }
+
+let deferredPrompt: any;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+
+    deferredPrompt = e;
+});
+
+async function installAsApp() {
+    if (navigator.vibrate) {
+        navigator.vibrate([10]);
+    }
+
+    if (!deferredPrompt) {
+        console.log('Install prompt not yet available.');
+        alert("You can't install Calculite as an app right now.");
+        return;
+    }
+
+    deferredPrompt?.prompt();
+
+    const { outcome } = await deferredPrompt.userChoice;
+    console.log('User response to install prompt:', outcome);
+
+    deferredPrompt = null;
+    hideInstall.value = true;
+}
+
+function isAppInstalled(): boolean {
+    return window.matchMedia('(display-mode: standalone)').matches 
+        || (window.navigator as any).standalone === true;
+}
+
+onMounted(() => {
+    hideInstall.value = isAppInstalled();
+});
 </script>
 
 <template>
@@ -36,6 +74,10 @@ function switchMode(mode: string) {
             <md-primary-tab :selected="currentMode === 'conversion'" @click="switchMode('conversion')">
                 <md-icon slot="icon">autorenew</md-icon>
                 Conversion
+            </md-primary-tab>
+            <md-primary-tab v-show="!hideInstall" @click="installAsApp()">
+                <md-icon slot="icon">install_desktop</md-icon>
+                Install
             </md-primary-tab>
         </md-tabs>
     </div>
