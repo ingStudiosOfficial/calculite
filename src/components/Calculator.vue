@@ -31,7 +31,7 @@ const OPERATORS: string[] = [
 const equation = ref<string[]>([]);
 const displayEquation = ref<string[]>([]);
 
-const calculatedResult = ref(0);
+const calculatedResult = ref<number | string>(0);
 
 // Handle events bubbled up from NumPad
 function handleButtonClick(props: any) {

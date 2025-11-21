@@ -6,7 +6,7 @@ import { type CalculatorType } from '@/utilities/calculator_utils';
 const props = defineProps({
     equation: Array,
     latestOutput: {
-        type: Number,
+        type: [Number, String],
         required: true,
     },
     type: {
@@ -22,7 +22,7 @@ const resultToDisplay = ref<string>(props.latestOutput?.toString() || '');
 
 
 
-watch(() => props.latestOutput, (newValue: number) => {
+watch(() => props.latestOutput, (newValue: number | string) => {
     switch (newValue) {
         case 67:
             resultToDisplay.value = "six seven";

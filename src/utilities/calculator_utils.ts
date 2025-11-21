@@ -85,7 +85,7 @@ function linearUnit(name: string, type: UnitType, symbol: string, ofbase: number
     };
 }
 
-export function calculate(equation: string[]): number {
+export function calculate(equation: string[]): number | string {
     let result;
 
     try {
@@ -99,7 +99,12 @@ export function calculate(equation: string[]): number {
         return result.value;
     } catch (error) {
         console.error("Error while calculating:", error);
-        return 0;
+        
+        if (error instanceof Error) {
+            return error.message;
+        } else {
+            return String(error);
+        }
     }
 }
 

@@ -73,7 +73,7 @@ const OPERATORS: string[] = [
 
 const equation = ref<string[]>([]);
 const displayEquation = ref<string[]>([]);
-const calculatedResult = ref(0);
+const calculatedResult = ref<number | string>(0);
 const resultToSend = ref<ResultObject>({ value: "0" });
 
 // Handle events bubbled up from NumPad
@@ -191,7 +191,7 @@ function listenForInput() {
     });
 }
 
-function sendToMemory(newValue: number) {
+function sendToMemory(newValue: number | string) {
     resultToSend.value = { value: newValue.toString() };
 }
 
@@ -209,7 +209,7 @@ onMounted(() => {
     <div class="calculator-box">
         <OutputBox :equation="displayEquation" :latest-output="calculatedResult" type="scientific"></OutputBox>
         <div class="bottom-container">
-            <MemoryBox :add-result="resultToSend" @emit-result="addResultFromMemory" class="memory-box"></MemoryBox>
+            <MemoryBox :add-result="resultToSend" @emit-result="addResultFromMemory"></MemoryBox>
             <NumPadSci @button-click="handleButtonClick" class="numpad"></NumPadSci>
         </div>
     </div>
@@ -224,11 +224,6 @@ onMounted(() => {
     grid-template-columns: 1fr;
     grid-template-rows: minmax(0, 1fr) minmax(0, 4fr);
     gap: 10px;
-}
-
-.memory-box {
-    width: 100%;
-    height: 100%;
 }
 
 .bottom-container {

@@ -17,11 +17,12 @@ export default class Parser {
         return prev;
     }
 
-    private expect(type: TokenType, err: any) {
+    private expect(type: TokenType, err: any): Token {
         const prev = this.tokens.shift();
 
         if (!prev || prev.type !== type) {
             console.error("Parser Error:\n", err, prev, "Expecting:", type);
+            throw new Error(err);
         }
 
         return prev;
@@ -117,13 +118,13 @@ export default class Parser {
             case TokenType.OpenParen:
                 this.eat();
                 const value = this.parseAdditiveExpr();
-                this.expect(TokenType.CloseParen, "Expected closing parentheses.");
+                this.expect(TokenType.CloseParen, "Expected closing parentheses");
                 return value;
 
             case TokenType.FunctionCall:
                 const functionToken = this.at().value;
                 this.eat();
-                this.expect(TokenType.OpenParen, "Expected opening parentheses.");
+                this.expect(TokenType.OpenParen, "Expected opening parentheses");
                 let params: Expression[] = [];
                 if (this.at().type !== TokenType.CloseParen) {
                     while (true) {
@@ -131,7 +132,7 @@ export default class Parser {
                         params.push(arg);
                         if (this.at().type === TokenType.CloseParen) break;
 
-                        this.expect(TokenType.Delimiter, "Expected a delimiter (,) to separate arguments.");
+                        this.expect(TokenType.Delimiter, "Expected a delimiter (,) to separate arguments");
                     }
                 }
                 
@@ -145,10 +146,7 @@ export default class Parser {
 
             default:
                 console.error("Unexpected token found during parsing:", this.at());
-                return {
-                    kind: "NumericLiteral",
-                    value: parseFloat("0"),
-                } as NumericLiteral;
+                throw new Error(`Unexpected token found during parsing '${this.at().value}'`);
         }
     }
 }
