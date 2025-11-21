@@ -101,9 +101,9 @@ onMounted(() => {
 <template>
     <div class="content-wrapper">
         <button v-for="(result, index) in pinnedResults" class="result-div pinned-result" :data-result="result" :data-pinned="true" :data-index="index" @click="addResultToEquation(result)" @contextmenu.prevent="openMenu($event)">
-            <md-filled-tonal-icon-button class="pin-button" @click.stop="pinOrUnpin(true, result, index)">
+            <md-icon-button class="pin-button" @click.stop="pinOrUnpin(true, result, index)">
                 <md-icon>keep_off</md-icon>
-            </md-filled-tonal-icon-button>
+            </md-icon-button>
             <md-ripple></md-ripple>
             <md-focus-ring style="--md-focus-ring-shape: 25px;"></md-focus-ring>
             <p class="result-text">{{ result }}</p>
