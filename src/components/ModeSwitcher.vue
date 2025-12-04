@@ -15,7 +15,7 @@ const hideInstall = ref<boolean>(false);
 function switchMode(mode: string) {
     console.log('Switching to:', mode);
 
-    if (navigator.vibrate) {
+    if ("vibrate" in navigator) {
         navigator.vibrate([10]);
     }
 
@@ -31,7 +31,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
 });
 
 async function installAsApp() {
-    if (navigator.vibrate) {
+    if ("vibrate" in navigator) {
         navigator.vibrate([10]);
     }
 

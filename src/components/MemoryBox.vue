@@ -37,7 +37,7 @@ const contextMenuParams = ref<ContextMenuParams>({
 });
 
 function addResultToEquation(result: string) {
-    if (navigator.vibrate) {
+    if ("vibrate" in navigator) {
         navigator.vibrate([10]);
     }
     
@@ -66,7 +66,7 @@ function refreshResults() {
 }
 
 function pinOrUnpin(pinned: boolean, result: string, index?: number) {
-    if (navigator.vibrate) {
+    if ("vibrate" in navigator) {
         navigator.vibrate(10);
     }
 

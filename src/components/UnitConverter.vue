@@ -24,7 +24,7 @@ const outputtedNumber = ref<string>("");
 const selectedUnits: Record<ConvertType, Unit | null> = { from: null, to: null };
 
 function selectUnit(selectedUnit: Unit, convertType: ConvertType) {
-    if (navigator.vibrate) {
+    if ("vibrate" in navigator) {
         navigator.vibrate([10]);
     }
 

@@ -26,7 +26,7 @@ function handleButtonClick() {
     console.log('Button clicked!');
 
     // Haptic feedback for mobile
-    if (navigator.vibrate) {
+    if ("vibrate" in navigator) {
         if (props.value === 'CLEAR_ALL' || props.value === 'CALCULATE') {
             navigator.vibrate([10, 50, 10]);
         } else {
