@@ -238,4 +238,11 @@ onMounted(() => {
     width: 100%;
     height: 100%;
 }
+
+@media (max-width: 768px) {
+    .bottom-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 4fr;
+    }
+}
 </style>

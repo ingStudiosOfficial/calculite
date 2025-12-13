@@ -6,6 +6,7 @@ import '@material/web/select/outlined-select.js';
 import '@material/web/select/select-option.js';
 
 import { convertUnits, type Unit, type UnitType, type ConvertObject, LENGTH_UNITS, AREA_UNITS, VOLUME_UNITS, TEMPERATURE_UNITS } from '@/utilities/calculator_utils';
+import { vibrate } from '@/utilities/vibrate';
 
 type ConvertType = "from" | "to";
 
@@ -24,9 +25,7 @@ const outputtedNumber = ref<string>("");
 const selectedUnits: Record<ConvertType, Unit | null> = { from: null, to: null };
 
 function selectUnit(selectedUnit: Unit, convertType: ConvertType) {
-    if ("vibrate" in navigator) {
-        navigator.vibrate([10]);
-    }
+    vibrate([10]);
 
     if (convertType === "from") updateAvailableTypes(selectedUnit.type);
     
@@ -61,7 +60,7 @@ function convert() {
         <div class="unit-container">
             <h1>From</h1>
             <div class="input-group">
-                <md-outlined-text-field v-model="inputtedNumber" @input="convert()"></md-outlined-text-field>
+                <md-outlined-text-field v-model="inputtedNumber" type="number" @input="convert()"></md-outlined-text-field>
                 <md-outlined-select class="unit-select">
                     <md-select-option v-for="unit in fromUnits" :value="unit.type" @click="selectUnit(unit, 'from')">
                         <p slot="headline">{{ unit.symbol }}</p>
@@ -72,7 +71,7 @@ function convert() {
         <div class="unit-container">
             <h1>To</h1>
             <div class="input-group">
-                <md-outlined-text-field v-model="outputtedNumber" readonly></md-outlined-text-field>
+                <md-outlined-text-field v-model="outputtedNumber" type="number" readonly></md-outlined-text-field>
                 <md-outlined-select class="unit-select">
                     <md-select-option v-for="unit in toUnits" :value="unit.type" @click="selectUnit(unit, 'to')">
                         <p slot="headline">{{ unit.symbol }}</p>

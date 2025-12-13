@@ -6,6 +6,7 @@ import '@material/web/focus/md-focus-ring.js';
 import '@material/web/icon/icon.js';
 
 import { type CalculatorType } from '@/utilities/calculator_utils';
+import { vibrate } from '@/utilities/vibrate';
 
 const props = defineProps({
     value: String,
@@ -25,13 +26,10 @@ const emit = defineEmits(['button-click']);
 function handleButtonClick() {
     console.log('Button clicked!');
 
-    // Haptic feedback for mobile
-    if ("vibrate" in navigator) {
-        if (props.value === 'CLEAR_ALL' || props.value === 'CALCULATE') {
-            navigator.vibrate([10, 50, 10]);
-        } else {
-            navigator.vibrate([10]);
-        }
+    if (props.value === 'CLEAR_ALL' || props.value === 'CALCULATE') {
+        vibrate([10, 50, 10]);
+    } else {
+        vibrate([10]);
     }
 
     emit('button-click', props);

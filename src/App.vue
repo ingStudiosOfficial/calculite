@@ -32,16 +32,14 @@ function switchCalculator(mode: string) {
 .content-wrapper {
 	width: 100vw;
 	height: 100vh;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+	display: grid;
+	grid-template-rows: 1fr auto;
 	justify-content: center;
 	box-sizing: border-box;
 	padding: 20px;
 }
 
 .calculator {
-	flex: 1 1 auto;
 	min-height: 0;
 	transition: all var(--md-spring-expressive-effects-slow-duration) var(--md-spring-expressive-effects-slow);
 	width: 90vw;

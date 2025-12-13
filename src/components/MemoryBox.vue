@@ -6,6 +6,8 @@ import '@material/web/focus/md-focus-ring.js';
 import '@material/web/iconbutton/icon-button.js';
 import '@material/web/icon/icon.js';
 
+import { vibrate } from '@/utilities/vibrate';
+
 import { saveResults, fetchResults, type ResultObject, fetchPinnedResults, type ResultItem, pinResult, unpinResult } from '@/utilities/calculator_utils';
 
 import MemoryContextMenu from './MemoryContextMenu.vue';
@@ -37,9 +39,7 @@ const contextMenuParams = ref<ContextMenuParams>({
 });
 
 function addResultToEquation(result: string) {
-    if ("vibrate" in navigator) {
-        navigator.vibrate([10]);
-    }
+    vibrate([10]);
     
     emit('emitResult', result);
 }
@@ -66,9 +66,7 @@ function refreshResults() {
 }
 
 function pinOrUnpin(pinned: boolean, result: string, index?: number) {
-    if ("vibrate" in navigator) {
-        navigator.vibrate(10);
-    }
+    vibrate([10]);
 
     if (pinned === true) {
         if (index === undefined) return;
@@ -163,6 +161,15 @@ onMounted(() => {
     position: absolute;
     top: -10px;
     right: -10px;
-    
+}
+
+@media (max-width: 768px) {
+    .content-wrapper {
+        flex-direction: row;
+    }
+
+    .result-div {
+        width: fit-content;
+    }
 }
 </style>
