@@ -92,6 +92,7 @@ function convert() {
     flex-wrap: nowrap;
     padding: 0;
     width: 90vw;
+    height: 100%;
 }
 
 .input-group {

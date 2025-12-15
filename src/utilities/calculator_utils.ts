@@ -1,6 +1,8 @@
 import Parser from './parser';
 import { evaluate } from './interpreter';
 
+import { disableWakeLock, requestWakeLock } from './wakelock';
+
 export type CalculatorType = "standard" | "scientific";
 export type UnitType = "length" | "area" | "volume" | "temperature";
 
@@ -25,6 +27,10 @@ export interface Unit {
 export interface ConvertObject {
     value: string;
     unit: Unit;
+}
+
+export interface Settings {
+    stayAwake: boolean;
 }
 
 export const LENGTH_UNITS: Unit[] = [
@@ -126,6 +132,8 @@ export function getCalculatorMode(): string {
             return "scientific";
         case "conversion":
             return "conversion";
+        case "settings":
+            return "settings";
         default:
             return "standard";
     }
@@ -186,4 +194,40 @@ export function deleteResult(index: number, pinned: boolean) {
     const results: string[] = JSON.parse(localStorage.getItem(key) || "[]");
     results.splice(index, 1);
     localStorage.setItem(key, JSON.stringify(results));
+}
+
+export async function toggleStayAwake(enabled: boolean) {
+    console.log('Enabled:', enabled);
+
+    const settings = fetchSettings();
+
+    settings.stayAwake = enabled;
+
+    localStorage.setItem('settings', JSON.stringify(settings));
+
+    if (enabled === true) {
+        await requestWakeLock();
+    } else {
+        disableWakeLock();
+    }
+}
+
+export function fetchSettings(): Settings {
+    const fetchedSettings = localStorage.getItem('settings');
+
+    console.log(fetchedSettings);
+
+    if (!fetchedSettings) {
+        localStorage.setItem('settings', JSON.stringify({
+            stayAwake: false,
+        }));
+
+        return {
+            stayAwake: false,
+        };
+    }
+
+    const settings: Settings = JSON.parse(fetchedSettings);
+
+    return settings;
 }

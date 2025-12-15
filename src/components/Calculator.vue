@@ -136,7 +136,7 @@ onMounted(() => {
 <style scoped>
 .calculator-box {
     width: 90vw;
-    height: 90vh;
+    height: 100%;
     background-color: transparent;
     display: grid;
     grid-template-columns: 1fr;

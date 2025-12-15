@@ -82,7 +82,7 @@ onMounted(() => {
                 <md-icon slot="icon">autorenew</md-icon>
                 Conversion
             </md-primary-tab>
-            <md-primary-tab>
+            <md-primary-tab :selected="currentMode === 'settings'" @click="switchMode('settings')">
                 <md-icon slot="icon">settings</md-icon>
                 Settings
             </md-primary-tab>
@@ -98,20 +98,20 @@ onMounted(() => {
             <md-icon>swap_horiz</md-icon>
         </md-icon-button>
         <md-menu id="mobile-menu" anchor="menu-button" positioning="popover">
-            <md-menu-item :selected="currentMode === 'standard'" @click="switchMode('standard')">
+            <md-menu-item @click="switchMode('standard')">
                 <div slot="headline">Standard</div>
                 <md-icon slot="start">calculate</md-icon>
             </md-menu-item>
-            <md-menu-item :selected="currentMode === 'scientific'" @click="switchMode('scientific')">
+            <md-menu-item @click="switchMode('scientific')">
                 <div slot="headline">Scientific</div>
                 <md-icon slot="start">science</md-icon>
             </md-menu-item>
-            <md-menu-item :selected="currentMode === 'conversion'" @click="switchMode('conversion')">
+            <md-menu-item @click="switchMode('conversion')">
                 <div slot="headline">Conversion</div>
                 <md-icon slot="start">autorenew</md-icon>
             </md-menu-item>
         </md-menu>
-        <md-icon-button class="switcher-button">
+        <md-icon-button class="switcher-button" @click="switchMode('settings')">
             <md-icon>settings</md-icon>
         </md-icon-button>
         <md-icon-button class="switcher-button" v-show="!hideInstall" @click="installAsApp()">

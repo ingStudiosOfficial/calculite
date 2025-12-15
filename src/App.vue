@@ -8,6 +8,7 @@ import Calculator from './components/Calculator.vue';
 import ScientificCalculator from './components/ScientificCalculator.vue';
 import UnitConverter from './components/UnitConverter.vue';
 import ModeSwitcher from './components/ModeSwitcher.vue';
+import Settings from './components/Settings.vue';
 
 import { getCalculatorMode, setCalculatorMode } from './utilities/calculator_utils';
 
@@ -25,6 +26,7 @@ function switchCalculator(mode: string) {
 		<Calculator class="calculator" v-if="currentMode === 'standard'"></Calculator>
 		<ScientificCalculator class="calculator" v-else-if="currentMode === 'scientific'"></ScientificCalculator>
 		<UnitConverter class="calculator unit-converter" v-else-if="currentMode === 'conversion'"></UnitConverter>
+		<Settings class="calculator" v-else-if="currentMode === 'settings'"></Settings>
 	</div>
 </template>
 
@@ -33,7 +35,7 @@ function switchCalculator(mode: string) {
 	width: 100vw;
 	height: 100vh;
 	display: grid;
-	grid-template-rows: 1fr auto;
+	grid-template-rows: 1fr 9fr;
 	justify-content: center;
 	box-sizing: border-box;
 	padding: 20px;
@@ -51,6 +53,7 @@ function switchCalculator(mode: string) {
 	align-items: stretch;
     justify-content: center;
 	padding: 0;
+	height: 100%;
 }
 
 .mode-expand {
