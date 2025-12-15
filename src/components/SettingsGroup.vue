@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import '@material/web/switch/switch.js';
 
+import { vibrate } from '@/utilities/vibrate';
+
 const props = defineProps({
     'title': String,
     'description': String,
@@ -10,6 +12,8 @@ const props = defineProps({
 const emit = defineEmits(['toggle']);
 
 function toggle() {
+    vibrate([10]);
+
     const switchElement: any = document.getElementById('switch-el');
 
     console.log('Selected:', switchElement.selected);
