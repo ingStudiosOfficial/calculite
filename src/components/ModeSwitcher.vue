@@ -46,7 +46,10 @@ async function installAsApp() {
     console.log('User response to install prompt:', outcome);
 
     deferredPrompt = null;
-    hideInstall.value = true;
+
+    if (outcome === 'accepted') {
+        hideInstall.value = true;
+    }
 }
 
 function isAppInstalled(): boolean {

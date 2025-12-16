@@ -94,6 +94,7 @@ function handleButtonClick(props: any) {
             case "CLEAR_ALL":
                 equation.value = [];
                 displayEquation.value = [];
+                calculatedResult.value = '';
                 break;
 
             case "CALCULATE":
@@ -162,6 +163,7 @@ function listenForInput() {
         } else if (e.key === 'Delete' || e.key === 'Escape') {
             equation.value = [];
             displayEquation.value = [];
+            calculatedResult.value = '';
         } else if (e.key === 'Backspace') {
             equation.value.pop();
             displayEquation.value.pop();
