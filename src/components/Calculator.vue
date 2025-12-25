@@ -6,12 +6,6 @@ import OutputBox from './OutputBox.vue';
 
 import { calculate } from '../utilities/calculator_utils';
 
-interface Button {
-    value: string;
-    display: string;
-    color: string;
-}
-
 // Keywords
 const KEYWORDS: string[] = [
     "CLEAR_ALL",
@@ -31,7 +25,7 @@ const OPERATORS: string[] = [
 const equation = ref<string[]>([]);
 const displayEquation = ref<string[]>([]);
 
-const calculatedResult = ref<number | string>(0);
+const calculatedResult = ref<number | string>('');
 
 // Handle events bubbled up from NumPad
 function handleButtonClick(props: any) {

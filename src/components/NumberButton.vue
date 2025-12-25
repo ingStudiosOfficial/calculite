@@ -8,18 +8,14 @@ import '@material/web/icon/icon.js';
 import { type CalculatorType } from '@/utilities/calculator_utils';
 import { vibrate } from '@/utilities/vibrate';
 
-const props = defineProps({
-    value: String,
-    display: String,
-    color: String,
-    type: {
-        type: String as PropType<CalculatorType>,
-        required: true,
-        validator: (value: string) => {
-            return ["standard", "scientific"].includes(value);
-        },
-    },
-});
+interface ButtonProps {
+    value: string;
+    display: string;
+    color: 'primary' | 'secondary' | 'tertiary';
+    type: 'standard' | 'scientific';
+}
+
+const props = defineProps<ButtonProps>();
 
 const emit = defineEmits(['button-click']);
 
@@ -56,7 +52,7 @@ switch (props.color) {
 </script>
 
 <template>
-    <button class="number-button" :class="type === 'standard' ? 'standard' : 'scientific'" :style="'background-color:' + backgroundColor" @click="handleButtonClick">
+    <button class="number-button" :class="type === 'standard' ? 'standard' : 'scientific'" :style="'background-color:' + backgroundColor" @pointerdown.prevent="handleButtonClick">
         <md-ripple class="button-attachments"></md-ripple>
         <md-focus-ring style="--md-focus-ring-shape: 25px;" class="button-attachments"></md-focus-ring>
         <md-icon v-if="props.value === 'BACKSPACE'">backspace</md-icon>
@@ -76,6 +72,9 @@ switch (props.color) {
     text-align: center;
     font-size: 2em;
     user-select: none;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
 }
 
 .number-button.standard {

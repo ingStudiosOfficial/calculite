@@ -3,13 +3,9 @@ import { ref } from 'vue';
 
 import NumberButton from './NumberButton.vue';
 
-interface Button {
-    value: string;
-    display: string;
-    color: string;
-}
+import type { Button } from '@/interfaces/Button';
 
-const buttons = ref([
+const buttons = ref<Button[]>([
     {
         value: "CLEAR_ALL",
         display: "AC",
