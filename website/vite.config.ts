@@ -21,24 +21,64 @@ export default defineConfig({
       manifest: {
         "short_name": "Calculite",
         "name": "Calculite",
+        "description": "A lightweight Material You themed calculator.",
         "icons": [
           {
             "src": "calculite_logo.png",
-            "sizes": "192x192",
+            "sizes": "500x500",
             "type": "image/png",
-            "purpose": "maskable"
+            "purpose": "any"
           },
           {
             "src": "calculite_logo.png",
-            "sizes": "512x512",
+            "sizes": "500x500",
             "type": "image/png",
             "purpose": "maskable"
           },
           {
             "src": "calculite_logo_mono.png",
-            "sizes": "512x512",
+            "sizes": "500x500",
             "type": "image/png",
             "purpose": "monochrome"
+          }
+        ],
+        "screenshots": [
+          {
+            "src": "screenshots/desktop_preview_1.png",
+            "sizes": "1920x1128",
+            "form_factor": "wide",
+            "platform": "windows",
+            "label": "Standard calculator view on desktop"
+          },
+          {
+            "src": "screenshots/desktop_preview_2.png",
+            "sizes": "1920x1128",
+            "form_factor": "wide",
+            "label": "Scientific calculator view with memory box on desktop"
+          },
+          {
+            "src": "screenshots/desktop_preview_3.png",
+            "sizes": "1920x1128",
+            "form_factor": "wide",
+            "label": "Unit conversion view on desktop"
+          },
+          {
+            "src": "screenshots/mobile_preview_1.png",
+            "sizes": "1080x2400",
+            "form_factor": "narrow",
+            "label": "Standard calculator view on mobile"
+          },
+          {
+            "src": "screenshots/mobile_preview_2.png",
+            "sizes": "1080x2400",
+            "form_factor": "narrow",
+            "label": "Scientific calculator view with memory box on mobile"
+          },
+          {
+            "src": "screenshots/mobile_preview_3.png",
+            "sizes": "1080x2400",
+            "form_factor": "narrow",
+            "label": "Unit conversion view on mobile"
           }
         ],
         "start_url": "/calculite/",
