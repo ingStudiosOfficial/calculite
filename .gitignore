@@ -34,3 +34,27 @@ coverage
 
 # Vitest
 __screenshots__/
+
+# Android / Bubblewrap
+local.properties
+
+.gradle/
+build/
+capture/
+
+*.iml
+.idea/modules.xml
+.idea/workspace.xml
+.idea/libraries/
+.idea/gradle.xml
+.idea/assetWizardSettings.xml
+
+*.apk
+*.ap_
+*.aab
+*.dex
+*.class
+*.idsig
+
+*.keystore
+*.jks
