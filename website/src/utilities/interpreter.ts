@@ -1,5 +1,5 @@
 import { type RuntimeVal, type NumberVal, MK_NUMBER, MK_NULL, type NullVal } from "./values";
-import { type BinaryExpression, type Expression, type FunctionCall, type NumericLiteral, type Program, type Stmt } from "./ast";
+import { type BinaryExpression, type Expression, type FunctionCall, type NumericLiteral, type Program, type Stmt, type UnaryExpression } from "./ast";
 import { FUNCTIONS } from "./math_functions";
 
 function evalProgram(program: Program): RuntimeVal {
@@ -48,6 +48,17 @@ function evalBinaryExpr(binop: BinaryExpression): RuntimeVal {
     return MK_NULL();
 }
 
+function evalUnaryExpr(unaryExpression: UnaryExpression): RuntimeVal {
+    const lhs = MK_NUMBER(0);
+    const rhs = evaluate(unaryExpression.operand);
+
+    if (rhs.type === "number") {
+        return evalNumericBinaryExpr(lhs as NumberVal, rhs as NumberVal, unaryExpression.operator);
+    }
+
+    return MK_NULL();
+}
+
 function evalFunction(name: string, ...args: Expression[]): NumberVal {
     const evaluatedParams: number[] = [];
 
@@ -87,6 +98,9 @@ export function evaluate(astNode: Stmt): RuntimeVal {
 
         case "BinaryExpression":
             return evalBinaryExpr(astNode as BinaryExpression);
+
+        case "UnaryExpression":
+            return evalUnaryExpr(astNode as UnaryExpression);
 
         case "FunctionCall":
             return evalFunction((astNode as FunctionCall).name, ...(astNode as FunctionCall).params);

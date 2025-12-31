@@ -1,3 +1,5 @@
+import { fetchSettings } from "./calculator_utils";
+
 let wakeLock: WakeLockSentinel | null;
 
 export async function requestWakeLock() {
@@ -27,4 +29,12 @@ export function disableWakeLock() {
             wakeLock = null;
         });
     }
+}
+
+export function wakeLockListener() {
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible' && fetchSettings().stayAwake === true) {
+            requestWakeLock();
+        }
+    });
 }

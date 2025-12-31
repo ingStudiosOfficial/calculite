@@ -58,7 +58,7 @@ export function tokenize(sourceExpression: string): Token[] {
         } else {
             if (src[0] === undefined) continue;
 
-            if (isInt(src[0])) {
+            if (isInt(src[0]) || (src[0] === "." && src[1] && isInt(src[1]))) {
                 let num = "";
 
                 while (src.length > 0 && isInt(src[0]) || src[0] === ".") {

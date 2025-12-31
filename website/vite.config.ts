@@ -25,12 +25,20 @@ export default defineConfig({
           {
             "src": "calculite_logo.png",
             "sizes": "192x192",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "maskable"
           },
           {
             "src": "calculite_logo.png",
             "sizes": "512x512",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "maskable"
+          },
+          {
+            "src": "calculite_logo_mono.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "monochrome"
           }
         ],
         "start_url": "/calculite/",

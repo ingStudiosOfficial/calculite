@@ -26,6 +26,15 @@ watch(() => props.latestOutput, (newValue: number | string) => {
             resultToDisplay.value = "six seven";
             break;
         default:
+            const isNumeric = typeof newValue === 'number' || 
+                     (typeof newValue === 'string' && newValue.trim() !== "" && !isNaN(Number(newValue)));
+
+            if (isNumeric) {
+                console.log('Result is a number.');
+                resultToDisplay.value = parseFloat((newValue as number).toFixed(10)).toString();
+                return;
+            }
+
             resultToDisplay.value = newValue.toString();
     }
 });
@@ -48,7 +57,10 @@ watch(() => props.latestOutput, (newValue: number | string) => {
     box-sizing: border-box;
     overflow-x: auto;
     overflow-y: hidden;
-    direction: rtl;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end; 
     text-align: right;
 }
 
@@ -57,15 +69,16 @@ watch(() => props.latestOutput, (newValue: number | string) => {
     color: var(--md-sys-color-on-primary-container);
     margin: 0;
     white-space: nowrap;
-    direction: ltr;
-    display: inline-block;
+    direction: ltr; 
 }
 
 .output {
     font-size: 2em;
+    min-height: 1.2em;
 }
 
 .equation {
     font-size: 3em;
+    min-height: 1.2em;
 }
 </style>

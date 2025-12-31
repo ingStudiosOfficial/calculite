@@ -1,6 +1,7 @@
 export type NodeType = 
     | "Expression"
     | "BinaryExpression"
+    | "UnaryExpression"
     | "NumericLiteral"
     | "Program"
     | "FunctionCall";
@@ -18,18 +19,24 @@ export interface BinaryExpression extends Expression {
     operator: string;
 }
 
+export interface UnaryExpression extends Expression {
+    kind: "UnaryExpression";
+    operator: string;
+    operand: Expression;
+}
+
 export interface NumericLiteral extends Expression {
     kind: "NumericLiteral";
     value: number;
 }
 
-export interface Program extends Stmt {
-    kind: "Program";
-    body: Stmt[];
-}
-
-export interface FunctionCall extends Stmt {
+export interface FunctionCall extends Expression {
     kind: "FunctionCall";
     name: string;
     params: Expression[];
+}
+
+export interface Program extends Stmt {
+    kind: "Program";
+    body: Stmt[];
 }

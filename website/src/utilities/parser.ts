@@ -1,4 +1,4 @@
-import { type Stmt, type Expression, type BinaryExpression, type NumericLiteral, type Program, type FunctionCall } from "./ast";
+import { type Stmt, type Expression, type BinaryExpression, type UnaryExpression, type NumericLiteral, type Program, type FunctionCall } from "./ast";
 import { tokenize, type Token, TokenType } from "./lexer";
 
 export default class Parser {
@@ -89,7 +89,7 @@ export default class Parser {
     }
 
     private parseExponentialExpr(): Expression {
-        let left = this.parsePrimaryExpr();
+        let left = this.parseUnaryExpr();
 
         while (this.at().value === "**") {
             const operator = this.eat().value;
@@ -103,6 +103,23 @@ export default class Parser {
         }
 
         return left;
+    }
+
+    private parseUnaryExpr(): Expression {
+        let value = this.at().value;
+
+        if (value === '-' || value === '+') {
+            const operator = this.eat().value;
+            const operand = this.parseUnaryExpr();
+
+            return {
+                kind: "UnaryExpression",
+                operator: operator,
+                operand: operand,
+            } as UnaryExpression;
+        }
+        
+        return this.parsePrimaryExpr();
     }
 
     private parsePrimaryExpr(): Expression {
