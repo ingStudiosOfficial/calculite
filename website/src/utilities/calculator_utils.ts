@@ -3,7 +3,7 @@ import { evaluate } from './interpreter';
 
 import { disableWakeLock, requestWakeLock } from './wakelock';
 
-export type CalculatorType = "standard" | "scientific";
+export type CalculatorType = 'standard' | 'scientific' | 'conversion' | 'settings';
 export type UnitType = "length" | "area" | "volume" | "temperature";
 
 export interface ResultObject {
@@ -114,29 +114,47 @@ export function calculate(equation: string[]): number | string {
     }
 }
 
-export function setCalculatorMode(mode: string) {
+function capitalizeMode(mode: CalculatorType): string {
+    return mode.charAt(0).toUpperCase() + mode.slice(1);
+}
+
+export function setCalculatorMode(mode: CalculatorType) {
+    if (mode === window.history.state.mode) return;
+
     const url = new URL(window.location.href);
     url.searchParams.set('mode', mode);
 
-    window.history.pushState({}, '', url.toString());
+    window.history.pushState({ mode: mode }, '', url.toString());
+
+    document.title = `${capitalizeMode(mode)} | Calculite`;
 }
 
-export function getCalculatorMode(): string {
+export function getCalculatorMode(): CalculatorType {
     const searchParams = new URLSearchParams(window.location.search);
     const calculatorMode = searchParams.get('mode');
 
+    let returnedMode: CalculatorType;
+
     switch (calculatorMode) {
         case "standard":
-            return "standard";
+            returnedMode = "standard";
+            break;
         case "scientific":
-            return "scientific";
+            returnedMode = "scientific";
+            break;
         case "conversion":
-            return "conversion";
+            returnedMode = "conversion";
+            break;
         case "settings":
-            return "settings";
+            returnedMode = "settings";
+            break;
         default:
-            return "standard";
+            returnedMode = "standard";
     }
+
+    document.title = `${capitalizeMode(returnedMode)} | Calculite`;
+
+    return returnedMode;
 }
 
 export function saveResults(results: string[]) {

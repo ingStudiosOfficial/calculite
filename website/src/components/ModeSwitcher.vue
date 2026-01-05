@@ -1,24 +1,33 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 
 import '@material/web/icon/icon.js';
 import '@material/web/tabs/tabs.js';
 import '@material/web/tabs/primary-tab.js';
 import '@material/web/menu/menu.js';
+import '@material/web/menu/menu-item.js';
 import '@material/web/iconbutton/icon-button.js';
 
-import { getCalculatorMode } from '@/utilities/calculator_utils';
+import { getCalculatorMode, setCalculatorMode, type CalculatorType } from '@/utilities/calculator_utils';
 import { vibrate } from '@/utilities/vibrate';
+
+interface ComponentProps {
+    mode: CalculatorType;
+}
+
+const props = defineProps<ComponentProps>();
 
 const emit = defineEmits(['mode-change']);
 
-const currentMode = ref<string>(getCalculatorMode());
+const currentMode = ref<CalculatorType>(getCalculatorMode());
 const hideInstall = ref<boolean>(false);
 
-function switchMode(mode: string) {
+function switchMode(mode: CalculatorType) {
     console.log('Switching to:', mode);
 
     vibrate([10]);
+
+    setCalculatorMode(mode);
 
     emit('mode-change', mode);
 }
@@ -64,6 +73,10 @@ function toggleMobileOpen() {
 
     menu.open = !menu.open;
 }
+
+watch(() => props.mode, (newMode) => {
+    currentMode.value = newMode;
+});
 
 onMounted(() => {
     hideInstall.value = isAppInstalled();

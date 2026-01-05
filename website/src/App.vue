@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 
 import '@material/web/iconbutton/icon-button.js';
 import '@material/web/icon/icon.js';
@@ -10,19 +10,35 @@ import UnitConverter from './components/UnitConverter.vue';
 import ModeSwitcher from './components/ModeSwitcher.vue';
 import Settings from './components/Settings.vue';
 
-import { getCalculatorMode, setCalculatorMode } from './utilities/calculator_utils';
+import { getCalculatorMode, setCalculatorMode, type CalculatorType } from './utilities/calculator_utils';
 
-const currentMode = ref(getCalculatorMode());
+const currentMode = ref<CalculatorType>();
 
-function switchCalculator(mode: string) {
+function switchCalculator(mode: CalculatorType) {
 	setCalculatorMode(mode);
 	currentMode.value = mode;
 }
+
+onMounted(() => {
+	window.addEventListener('popstate', (e) => {
+		if (e.state && (e.state.mode as CalculatorType)) {
+			currentMode.value = e.state.mode;
+		} else {
+			currentMode.value = 'standard';
+		}
+	});
+
+	const fetchedMode = getCalculatorMode();
+
+	currentMode.value = fetchedMode;
+
+	window.history.replaceState({ mode: fetchedMode }, '', window.location.search)
+});
 </script>
 
 <template>
-	<div class="content-wrapper">
-		<ModeSwitcher @mode-change="switchCalculator"></ModeSwitcher>
+	<div class="content-wrapper" v-if="currentMode">
+		<ModeSwitcher :mode="currentMode" @mode-change="switchCalculator"></ModeSwitcher>
 		<Calculator class="calculator" v-if="currentMode === 'standard'"></Calculator>
 		<ScientificCalculator class="calculator" v-else-if="currentMode === 'scientific'"></ScientificCalculator>
 		<UnitConverter class="calculator unit-converter" v-else-if="currentMode === 'conversion'"></UnitConverter>
