@@ -119,7 +119,7 @@ function capitalizeMode(mode: CalculatorType): string {
 }
 
 export function setCalculatorMode(mode: CalculatorType) {
-    if (mode === window.history.state.mode) return;
+    if (mode === window.history.state?.mode) return;
 
     const url = new URL(window.location.href);
     url.searchParams.set('mode', mode);

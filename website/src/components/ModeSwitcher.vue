@@ -15,19 +15,30 @@ interface ComponentProps {
     mode: CalculatorType;
 }
 
+interface MdTabPartial {
+    activeTabIndex: number;
+}
+
 const props = defineProps<ComponentProps>();
 
 const emit = defineEmits(['mode-change']);
 
-const currentMode = ref<CalculatorType>(getCalculatorMode());
+const localMode = ref<CalculatorType>();
 const hideInstall = ref<boolean>(false);
+const tabsRef = ref<MdTabPartial>();
+const modeToIndex: Record<CalculatorType, number> = {
+    'standard': 0,
+    'scientific': 1,
+    'conversion': 2,
+    'settings': 3,
+};
 
 function switchMode(mode: CalculatorType) {
     console.log('Switching to:', mode);
 
     vibrate([10]);
 
-    setCalculatorMode(mode);
+    localMode.value = mode;
 
     emit('mode-change', mode);
 }
@@ -75,8 +86,12 @@ function toggleMobileOpen() {
 }
 
 watch(() => props.mode, (newMode) => {
-    currentMode.value = newMode;
-});
+    localMode.value = newMode;
+
+    if (tabsRef.value) {
+        tabsRef.value.activeTabIndex = modeToIndex[newMode];
+    }
+}, { immediate: true });
 
 onMounted(() => {
     hideInstall.value = isAppInstalled();
@@ -85,20 +100,20 @@ onMounted(() => {
 
 <template>
     <div class="switcher">
-        <md-tabs class="tabs">
-            <md-primary-tab :selected="currentMode === 'standard'" @click="switchMode('standard')">
+        <md-tabs class="tabs" ref="tabsRef">
+            <md-primary-tab @click="switchMode('standard')">
                 <md-icon slot="icon">calculate</md-icon>
                 Standard
             </md-primary-tab>
-            <md-primary-tab :selected="currentMode === 'scientific'" @click="switchMode('scientific')">
+            <md-primary-tab @click="switchMode('scientific')">
                 <md-icon slot="icon">science</md-icon>
                 Scientific
             </md-primary-tab>
-            <md-primary-tab :selected="currentMode === 'conversion'" @click="switchMode('conversion')">
+            <md-primary-tab @click="switchMode('conversion')">
                 <md-icon slot="icon">autorenew</md-icon>
                 Conversion
             </md-primary-tab>
-            <md-primary-tab :selected="currentMode === 'settings'" @click="switchMode('settings')">
+            <md-primary-tab @click="switchMode('settings')">
                 <md-icon slot="icon">settings</md-icon>
                 Settings
             </md-primary-tab>
