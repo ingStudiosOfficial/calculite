@@ -81,7 +81,7 @@ export default defineConfig({
             "label": "Unit conversion view on mobile"
           }
         ],
-        "start_url": "/calculite/",
+        "start_url": "/",
         "display": "standalone",
         "theme_color": "#006a60",
         "background_color": "#f4fbf8"
@@ -137,5 +137,5 @@ export default defineConfig({
   server: {
     port: 3003,
   },
-  base: '/calculite/',
+  base: '/',
 })
