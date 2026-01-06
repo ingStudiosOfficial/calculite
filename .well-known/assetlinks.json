@@ -5,7 +5,7 @@
         ],
         "target": {
             "namespace": "android_app",
-            "package_name": "io.github.ingstudiosofficial.calculite",
+            "package_name": "dev.ingstudios.calculite",
             "sha256_cert_fingerprints": [
                 "C7:6C:26:43:6A:58:E7:21:20:53:CD:BB:04:E0:08:F9:0D:D7:A5:88:53:3E:DB:FB:90:3D:60:E1:3C:C2:AD:66"
             ]
