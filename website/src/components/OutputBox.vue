@@ -36,6 +36,8 @@ watch(() => props.latestOutput, (newValue: number | string) => {
             }
 
             resultToDisplay.value = newValue.toString();
+
+            break;
     }
 });
 </script>

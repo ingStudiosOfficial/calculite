@@ -73,6 +73,7 @@ function handleButtonClick(props: any) {
 
             default:
                 console.error('Unexpected keyword:', buttonClickedObject);
+                break;
         }
 
         return;

@@ -133,6 +133,7 @@ function handleButtonClick(props: any) {
 
             default:
                 console.log('Unexpected keyword:', buttonClickedObject);
+                break;
         }
 
         return;

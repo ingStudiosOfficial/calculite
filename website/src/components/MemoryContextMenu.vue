@@ -50,6 +50,7 @@ function doAction(actionName: string) {
             break
         default:
             console.error('Could not find case for:', actionName);
+            break;
     }
 
     menu.value.close();

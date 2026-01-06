@@ -49,7 +49,7 @@ onMounted(() => {
 <style scoped>
 .content-wrapper {
 	width: 100vw;
-	height: 100vh;
+	height: 100svh;
 	display: grid;
 	grid-template-rows: 1fr 9fr;
 	justify-content: center;

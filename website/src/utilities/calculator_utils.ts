@@ -150,6 +150,7 @@ export function getCalculatorMode(): CalculatorType {
             break;
         default:
             returnedMode = "standard";
+            break;
     }
 
     document.title = `${capitalizeMode(returnedMode)} | Calculite`;

@@ -114,5 +114,6 @@ export function evaluate(astNode: Stmt): RuntimeVal {
                 value: null,
                 type: "null",
             } as NullVal;
+            break;
     }
 }

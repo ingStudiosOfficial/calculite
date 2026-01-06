@@ -48,6 +48,7 @@ switch (props.color) {
         
     default:
         backgroundColor.value = '#ffffff';
+        break;
 }
 </script>
 

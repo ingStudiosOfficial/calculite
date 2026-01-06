@@ -47,6 +47,7 @@ export default class Parser {
         switch (this.at().type) {
             default:
                 return this.parseExpr();
+                break;
         }
     }
 
