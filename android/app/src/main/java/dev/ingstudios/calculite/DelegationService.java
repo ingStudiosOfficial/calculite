@@ -1,4 +1,4 @@
-package io.github.ingstudiosofficial.calculite;
+package dev.ingstudios.calculite;
 
 
 

@@ -1,6 +1,6 @@
 {
-  "packageId": "io.github.ingstudiosofficial.calculite",
-  "host": "ingstudiosofficial.github.io",
+  "packageId": "dev.ingstudios.calculite",
+  "host": "calculite.ingstudios.dev",
   "name": "Calculite",
   "launcherName": "Calculite",
   "display": "standalone",
@@ -12,20 +12,20 @@
   "navigationDividerColorDark": "#000000",
   "backgroundColor": "#F4FBF8",
   "enableNotifications": true,
-  "startUrl": "/calculite/",
-  "iconUrl": "https://ingstudiosofficial.github.io/calculite/calculite_logo.png",
-  "maskableIconUrl": "https://ingstudiosofficial.github.io/calculite/calculite_logo.png",
-  "monochromeIconUrl": "https://ingstudiosofficial.github.io/calculite/calculite_logo_mono.png",
+  "startUrl": "/",
+  "iconUrl": "https://calculite.ingstudios.dev/calculite_logo.png",
+  "maskableIconUrl": "https://calculite.ingstudios.dev/calculite_logo.png",
+  "monochromeIconUrl": "https://calculite.ingstudios.dev/calculite_logo_mono.png",
   "splashScreenFadeOutDuration": 300,
   "signingKey": {
-    "path": "C:\\Users\\plusc\\Desktop\\Web Development (Local)\\calculite\\android\\android.keystore",
+    "path": "./android.keystore",
     "alias": "android"
   },
-  "appVersionName": "1",
-  "appVersionCode": 1,
+  "appVersionName": "2",
+  "appVersionCode": 2,
   "shortcuts": [],
   "generatorApp": "bubblewrap-cli",
-  "webManifestUrl": "https://ingstudiosofficial.github.io/calculite/manifest.webmanifest",
+  "webManifestUrl": "https://calculite.ingstudios.dev/manifest.webmanifest",
   "fallbackType": "customtabs",
   "features": {},
   "alphaDependencies": {
@@ -34,7 +34,7 @@
   "enableSiteSettingsShortcut": true,
   "isChromeOSOnly": false,
   "isMetaQuest": false,
-  "fullScopeUrl": "https://ingstudiosofficial.github.io/calculite/",
+  "fullScopeUrl": "https://calculite.ingstudios.dev/",
   "minSdkVersion": 21,
   "orientation": "default",
   "fingerprints": [],
@@ -44,5 +44,5 @@
   "fileHandlers": [],
   "launchHandlerClientMode": "",
   "displayOverride": [],
-  "appVersion": "1"
+  "appVersion": "2"
 }
