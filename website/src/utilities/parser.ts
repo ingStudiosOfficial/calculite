@@ -136,7 +136,7 @@ export default class Parser {
             case TokenType.OpenParen:
                 this.eat();
                 const value = this.parseAdditiveExpr();
-                this.expect(TokenType.CloseParen, "Expected closing parentheses");
+                this.expect(TokenType.CloseParen, "Parser error: Expected closing parentheses");
                 return value;
 
             case TokenType.FunctionCall:
@@ -163,8 +163,8 @@ export default class Parser {
                 } as FunctionCall;
 
             default:
-                console.error("Unexpected token found during parsing:", this.at());
-                throw new Error(`Unexpected token found during parsing '${this.at().value}'`);
+                console.error("Parser error:", this.at());
+                throw new Error(`Parser error: Unexpected token found at '${this.at().value}'`);
         }
     }
 }

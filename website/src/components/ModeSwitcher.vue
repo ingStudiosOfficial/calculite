@@ -111,7 +111,7 @@ onMounted(() => {
             </md-primary-tab>
             <md-primary-tab @click="switchMode('conversion')">
                 <md-icon slot="icon">autorenew</md-icon>
-                Conversion
+                Conversion (Beta)
             </md-primary-tab>
             <md-primary-tab @click="switchMode('settings')">
                 <md-icon slot="icon">settings</md-icon>
@@ -138,7 +138,7 @@ onMounted(() => {
                 <md-icon slot="start">science</md-icon>
             </md-menu-item>
             <md-menu-item @click="switchMode('conversion')">
-                <div slot="headline">Conversion</div>
+                <div slot="headline">Conversion (Beta)</div>
                 <md-icon slot="start">autorenew</md-icon>
             </md-menu-item>
         </md-menu>

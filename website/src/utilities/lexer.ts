@@ -35,6 +35,21 @@ function isSkippable(str: string) {
     return str === ' ' || str === '\n' || str === '\t';
 }
 
+function identifyError(src: string[]): string {
+    switch (src[0]) {
+        case '.':
+            if (!src[1] || !isInt(src[1])) {
+                return `Expected integer after '.'`;
+            } else {
+                return 'An unknown error occurred, character \'.\'';
+            }
+
+            break;
+        default:
+            return `An unknown error occurred, character '${src[0]}'`;
+    }
+}
+
 export function tokenize(sourceExpression: string): Token[] {
     const tokens = new Array<Token>();
     const src: string[] = sourceExpression.split("") as string[];
@@ -82,6 +97,7 @@ export function tokenize(sourceExpression: string): Token[] {
                 src.shift();
             } else {
                 console.error("Unknown character:", src[0]);
+                throw new Error(`Lexer error: ${identifyError(src)}`);
             }
         }
     }
