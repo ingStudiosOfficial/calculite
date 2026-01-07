@@ -55,6 +55,7 @@ capture/
 *.dex
 *.class
 *.idsig
+*.zip
 
 *.keystore
 *.jks
