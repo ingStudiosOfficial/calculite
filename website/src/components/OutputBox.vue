@@ -57,7 +57,7 @@ watch(() => props.latestOutput, (newValue: number | string) => {
     background-color: var(--md-sys-color-primary-container);
     padding: 20px;
     box-sizing: border-box;
-    overflow-x: auto;
+    overflow-x: scroll;
     overflow-y: hidden;
     display: flex;
     flex-direction: column;
@@ -71,7 +71,10 @@ watch(() => props.latestOutput, (newValue: number | string) => {
     color: var(--md-sys-color-on-primary-container);
     margin: 0;
     white-space: nowrap;
-    direction: ltr; 
+    direction: ltr;
+    width: 100%;
+    overflow-x: scroll;
+    overflow-y: hidden;
 }
 
 .output {
