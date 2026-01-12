@@ -8,7 +8,7 @@ import '@material/web/icon/icon.js';
 
 import { vibrate } from '../utilities/vibrate';
 
-import { saveResults, fetchResults, type ResultObject, fetchPinnedResults, type ResultItem, pinResult, unpinResult } from '../utilities/calculator_utils';
+import { saveResults, fetchResults, type ResultObject, fetchPinnedResults, type ResultItem } from '../utilities/calculator_utils';
 
 import MemoryContextMenu from './MemoryContextMenu.vue';
 
@@ -65,20 +65,6 @@ function refreshResults() {
     pinnedResults.value = fetchPinnedResults();
 }
 
-function pinOrUnpin(pinned: boolean, result: string, index?: number) {
-    vibrate([10]);
-
-    if (pinned === true) {
-        if (index === undefined) return;
-        unpinResult(result, index);
-    } else {
-        pinResult(result)
-    }
-
-    resultsToDisplay.value = fetchResults();
-    pinnedResults.value = fetchPinnedResults();
-}
-
 watch(() => props.addResult, (newValue: ResultObject, oldValue: ResultObject) => {
     console.log(newValue.value);
     if (Number.isNaN(parseFloat(newValue.value as string))) { 
@@ -99,7 +85,7 @@ onMounted(() => {
 <template>
     <div class="content-wrapper">
         <button v-for="(result, index) in pinnedResults" class="result-div pinned-result" :data-result="result" :data-pinned="true" :data-index="index" @click="addResultToEquation(result)" @contextmenu.prevent="openMenu($event)">
-            <md-icon-button class="pin-button" @click.stop="pinOrUnpin(true, result, index)">
+            <md-icon-button class="pin-button">
                 <md-icon>keep_off</md-icon>
             </md-icon-button>
             <md-ripple></md-ripple>
@@ -107,7 +93,7 @@ onMounted(() => {
             <p class="result-text">{{ result }}</p>
         </button>
         <button v-for="(result, index) in resultsToDisplay.slice(0, (10 - pinnedResults.length))" class="result-div" :data-result="result" :data-pinned="false" :data-index="index" @click="addResultToEquation(result)" @contextmenu.prevent="openMenu($event)">
-            <md-icon-button class="pin-button" @click.stop="pinOrUnpin(false, result)">
+            <md-icon-button class="pin-button">
                 <md-icon>keep</md-icon>
             </md-icon-button>
             <md-ripple></md-ripple>

@@ -11,8 +11,11 @@ import '@material/web/iconbutton/icon-button.js';
 import type { CalculatorType } from '../utilities/calculator_utils';
 import { vibrate } from '../utilities/vibrate';
 
+type AppType = 'website' | 'extension';
+
 interface ComponentProps {
     mode: CalculatorType;
+    appType: AppType;
 }
 
 interface MdTabPartial {
@@ -117,7 +120,7 @@ onMounted(() => {
                 <md-icon slot="icon">settings</md-icon>
                 Settings
             </md-primary-tab>
-            <md-primary-tab v-show="!hideInstall" @click="installAsApp()">
+            <md-primary-tab v-if="!hideInstall && props.appType !== 'extension'" @click="installAsApp()">
                 <md-icon slot="icon">install_desktop</md-icon>
                 Install
             </md-primary-tab>
@@ -145,7 +148,7 @@ onMounted(() => {
         <md-icon-button class="switcher-button" @click="switchMode('settings')">
             <md-icon>settings</md-icon>
         </md-icon-button>
-        <md-icon-button class="switcher-button" v-show="!hideInstall" @click="installAsApp()">
+        <md-icon-button class="switcher-button" v-if="!hideInstall && props.appType !== 'extension'" @click="installAsApp()">
             <md-icon>install_desktop</md-icon>
         </md-icon-button>
     </div>

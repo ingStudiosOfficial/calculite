@@ -38,7 +38,7 @@ onMounted(() => {
 
 <template>
 	<div class="content-wrapper" v-if="currentMode">
-		<ModeSwitcher :mode="currentMode" @mode-change="switchCalculator"></ModeSwitcher>
+		<ModeSwitcher :mode="currentMode" app-type="extension" @mode-change="switchCalculator"></ModeSwitcher>
 		<Calculator class="calculator" v-if="currentMode === 'standard'"></Calculator>
 		<ScientificCalculator class="calculator" v-else-if="currentMode === 'scientific'"></ScientificCalculator>
 		<UnitConverter class="calculator unit-converter" v-else-if="currentMode === 'conversion'"></UnitConverter>
