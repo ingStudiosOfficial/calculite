@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { type PropType, ref, watch } from 'vue';
 
-import type { CalculatorType } from '@/utilities/calculator_utils';
+import type { CalculatorType } from '../utilities/calculator_utils';
 
 const props = defineProps({
     equation: Array,

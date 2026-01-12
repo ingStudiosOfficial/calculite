@@ -5,8 +5,8 @@ import '@material/web/textfield/outlined-text-field.js';
 import '@material/web/select/outlined-select.js';
 import '@material/web/select/select-option.js';
 
-import { convertUnits, type Unit, type UnitType, type ConvertObject, LENGTH_UNITS, AREA_UNITS, VOLUME_UNITS, TEMPERATURE_UNITS } from '@/utilities/calculator_utils';
-import { vibrate } from '@/utilities/vibrate';
+import { convertUnits, type Unit, type UnitType, type ConvertObject, LENGTH_UNITS, AREA_UNITS, VOLUME_UNITS, TEMPERATURE_UNITS } from '../utilities/calculator_utils';
+import { vibrate } from '../utilities/vibrate';
 
 type ConvertType = "from" | "to";
 

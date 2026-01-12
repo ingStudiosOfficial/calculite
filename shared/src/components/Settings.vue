@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import SettingsGroup from './SettingsGroup.vue';
 
-import { fetchSettings, toggleStayAwake } from '@/utilities/calculator_utils';
+import { fetchSettings, toggleStayAwake } from '../utilities/calculator_utils';
 </script>
 
 <template>

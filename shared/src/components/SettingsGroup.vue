@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import '@material/web/switch/switch.js';
 
-import { vibrate } from '@/utilities/vibrate';
+import { vibrate } from '../utilities/vibrate';
 
 const props = defineProps({
     'title': String,

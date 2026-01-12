@@ -5,8 +5,7 @@ import '@material/web/ripple/ripple.js';
 import '@material/web/focus/md-focus-ring.js';
 import '@material/web/icon/icon.js';
 
-import { type CalculatorType } from '@/utilities/calculator_utils';
-import { vibrate } from '@/utilities/vibrate';
+import { vibrate } from '../utilities/vibrate';
 
 interface ButtonProps {
     value: string;

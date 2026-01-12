@@ -4,8 +4,8 @@ import { watch, ref } from 'vue';
 import '@material/web/menu/menu.js';
 import '@material/web/menu/menu-item.js';
 
-import { deleteResult, pinResult, unpinResult, type ResultItem } from '@/utilities/calculator_utils';
-import { vibrate } from '@/utilities/vibrate';
+import { deleteResult, pinResult, unpinResult, type ResultItem } from '../utilities/calculator_utils';
+import { vibrate } from '../utilities/vibrate';
 
 const props = defineProps<{
     x: number;

@@ -3,7 +3,7 @@ import { ref } from 'vue';
 
 import NumberButton from './NumberButton.vue';
 
-import type { Button } from '@/interfaces/Button';
+import type { Button } from '../interfaces/Button';
 
 const buttons = ref<Button[]>([
     {

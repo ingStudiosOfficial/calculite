@@ -12,6 +12,10 @@
   "description": "",
   "dependencies": {
     "@calculite/shared": "^1.0.0",
+    "@material/web": "^2.4.1",
     "vue": "^3.5.26"
+  },
+  "devDependencies": {
+    "chrome-types": "^0.1.409"
   }
 }

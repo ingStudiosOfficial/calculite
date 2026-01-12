@@ -8,8 +8,8 @@ import '@material/web/menu/menu.js';
 import '@material/web/menu/menu-item.js';
 import '@material/web/iconbutton/icon-button.js';
 
-import { getCalculatorMode, setCalculatorMode, type CalculatorType } from '@/utilities/calculator_utils';
-import { vibrate } from '@/utilities/vibrate';
+import type { CalculatorType } from '../utilities/calculator_utils';
+import { vibrate } from '../utilities/vibrate';
 
 interface ComponentProps {
     mode: CalculatorType;
