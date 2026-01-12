@@ -1,0 +1,17 @@
+{
+  "name": "@calculite/extension",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@calculite/shared": "^1.0.0",
+    "vue": "^3.5.26"
+  }
+}
