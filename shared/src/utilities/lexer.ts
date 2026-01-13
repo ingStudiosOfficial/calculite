@@ -91,7 +91,8 @@ export function tokenize(sourceExpression: string): Token[] {
                 if (Object.keys(FUNCTIONS).includes(alphaString)) {
                     tokens.push(token(alphaString, TokenType.FunctionCall));
                 } else {
-                    console.error("Alphabetic characters are not supported.");   
+                    console.error("Alphabetic characters are not supported.");
+                    throw new Error('Lexer error: Alphabetic characters are not supported');
                 }
             } else if (isSkippable(src[0])) {
                 src.shift();

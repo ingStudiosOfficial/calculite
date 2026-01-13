@@ -4,6 +4,7 @@
   "version": "2.0.1",
   "description": "A Lightweight Material You Calculator",
   "icons": {
+    "16": "calculite_logo.png",
     "48": "calculite_logo.png",
     "128": "calculite_logo.png"
   },
@@ -11,7 +12,9 @@
     "default_path": "index.html"
   },
   "permissions": [
-    "sidePanel"
+    "sidePanel",
+    "contextMenus",
+    "notifications"
   ],
   "action": {
     "default_title": "Click to open Calculite"

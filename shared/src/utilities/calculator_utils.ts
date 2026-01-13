@@ -2,6 +2,7 @@ import Parser from './parser';
 import { evaluate } from './interpreter';
 
 import { disableWakeLock, requestWakeLock } from './wakelock';
+import { RuntimeVal } from './values';
 
 export type CalculatorType = 'standard' | 'scientific' | 'conversion' | 'settings';
 export type UnitType = "length" | "area" | "volume" | "temperature";
@@ -91,12 +92,12 @@ function linearUnit(name: string, type: UnitType, symbol: string, ofbase: number
     };
 }
 
-export function calculate(equation: string[]): number | string {
-    let result;
+export function calculate(equation: string[] | string): number | string {
+    let result: RuntimeVal;
 
     try {
         const parser = new Parser();
-        const ast = parser.produceAST(equation.join(""));
+        const ast = parser.produceAST(Array.isArray(equation) ? equation.join("") : equation);
         console.log("Produced AST:", ast);
 
         result = evaluate(ast);

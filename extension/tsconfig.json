@@ -12,7 +12,7 @@
     "composite": true,
     "types": ["chrome-types"],
     "paths": {
-        "@shared/*": ["../shared/src/*"]
+        "@calculite/shared/*": ["../shared/src/*"]
     }
   },
   "include": ["src/**/*"],
