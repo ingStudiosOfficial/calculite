@@ -31,3 +31,11 @@ export function calculateSelection(selection: string) {
         ],
     });
 }
+
+export function calculateAndReplaceSelection(selection: string) {
+    console.log('Calculating selection:', selection);
+
+    const result = calculate(selection);
+
+    console.log('Result:', result);
+}

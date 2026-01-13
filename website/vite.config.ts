@@ -84,7 +84,53 @@ export default defineConfig({
         "start_url": "/",
         "display": "standalone",
         "theme_color": "#006a60",
-        "background_color": "#f4fbf8"
+        "background_color": "#f4fbf8",
+        "shortcuts": [
+          {
+            "name": "Standard",
+            "description": "Opens Calculite in Standard mode",
+            "url": "/?mode=standard",
+            "icons": [
+              {
+                "src": "shortcut_icons/shortcut_standard_icon.png",
+                "sizes": "192x192"
+              }
+            ]
+          },
+          {
+            "name": "Scientific",
+            "description": "Opens Calculite in Scientific mode",
+            "url": "/?mode=scientific",
+            "icons": [
+              {
+                "src": "shortcut_icons/shortcut_scientific_icon.png",
+                "sizes": "192x192"
+              }
+            ]
+          },
+          {
+            "name": "Conversion",
+            "description": "Opens Calculite in Conversion mode",
+            "url": "/?mode=conversion",
+            "icons": [
+              {
+                "src": "shortcut_icons/shortcut_conversion_icon.png",
+                "sizes": "192x192"
+              }
+            ]
+          },
+          {
+            "name": "Settings",
+            "description": "Opens Calculite settings",
+            "url": "/?mode=settings",
+            "icons": [
+              {
+                "src": "shortcut_icons/shortcut_settings_icon.png",
+                "sizes": "192x192"
+              }
+            ]
+          }
+        ]
       },
       srcDir: 'src/',
       includeAssets: ['public/*'],

@@ -2,7 +2,7 @@ import Parser from './parser';
 import { evaluate } from './interpreter';
 
 import { disableWakeLock, requestWakeLock } from './wakelock';
-import { RuntimeVal } from './values';
+import type { RuntimeVal } from './values';
 
 export type CalculatorType = 'standard' | 'scientific' | 'conversion' | 'settings';
 export type UnitType = "length" | "area" | "volume" | "temperature";

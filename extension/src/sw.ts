@@ -30,6 +30,9 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
             if (!info.selectionText) return;
             calculateSelection(info.selectionText);
             break;
-        
+
+        case 'calculate_and_replace_selection':
+            if (!info.selectionText) return;
+            
     }
 });
