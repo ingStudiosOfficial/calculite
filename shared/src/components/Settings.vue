@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import SettingsGroup from './SettingsGroup.vue';
+import SettingsFooter from './SettingsFooter.vue';
 
 import { fetchSettings, toggleStayAwake } from '../utilities/calculator_utils';
 </script>
@@ -10,6 +11,7 @@ import { fetchSettings, toggleStayAwake } from '../utilities/calculator_utils';
         <div class="settings-wrapper">
             <SettingsGroup title="Always stay awake" description="Prevents screen from sleeping when enabled" :enabled="fetchSettings().stayAwake" @toggle="toggleStayAwake"></SettingsGroup>
         </div>
+        <SettingsFooter class="footer"></SettingsFooter>
     </div>
 </template>
 
@@ -34,8 +36,20 @@ import { fetchSettings, toggleStayAwake } from '../utilities/calculator_utils';
     width: 30vw;
 }
 
+.footer {
+    width: 30vw;
+    position: fixed;
+    bottom: 25px;
+    left: 50vw;
+    transform: translate(-50%, -50%);
+}
+
 @media (max-width: 768px) {
     .settings-wrapper {
+        width: 70vw;
+    }
+
+    .footer {
         width: 70vw;
     }
 }
