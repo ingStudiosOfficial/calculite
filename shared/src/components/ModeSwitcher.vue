@@ -8,7 +8,7 @@ import '@material/web/menu/menu.js';
 import '@material/web/menu/menu-item.js';
 import '@material/web/iconbutton/icon-button.js';
 
-import type { CalculatorType } from '../utilities/calculator_utils';
+import { getCalculatorMode, type CalculatorType } from '../utilities/calculator_utils';
 import { vibrate } from '../utilities/vibrate';
 
 type AppType = 'website' | 'extension';
@@ -98,6 +98,13 @@ watch(() => props.mode, (newMode) => {
 
 onMounted(() => {
     hideInstall.value = isAppInstalled();
+    
+    const currentMode = getCalculatorMode();
+    localMode.value = currentMode;
+
+    if (tabsRef.value) {
+        tabsRef.value.activeTabIndex = modeToIndex[currentMode];
+    }
 });
 </script>
 
