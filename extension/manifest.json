@@ -14,7 +14,12 @@
   "permissions": [
     "sidePanel",
     "contextMenus",
-    "notifications"
+    "notifications",
+    "scripting",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "<all_urls>"
   ],
   "action": {
     "default_title": "Click to open Calculite"

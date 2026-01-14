@@ -32,10 +32,39 @@ export function calculateSelection(selection: string) {
     });
 }
 
-export function calculateAndReplaceSelection(selection: string) {
+export async function calculateAndReplaceSelection(selection: string, tab: chrome.tabs.Tab) {
     console.log('Calculating selection:', selection);
 
     const result = calculate(selection);
 
     console.log('Result:', result);
+
+    if (typeof result !== 'number') {
+        console.error('Error calculating.');
+        chrome.notifications.create({
+            title: 'Error calculating and replacing',
+            message: result,
+            type: 'basic',
+            iconUrl: '/calculite_logo.png',
+            buttons: [
+                {
+                    title: 'Open in sidebar',
+                }
+            ],
+        });
+        return;
+    }
+
+    const tabId = tab.id;
+    if (!tabId) {
+        console.error('Tab ID not found.');
+        return;
+    }
+
+    chrome.scripting.executeScript({
+        target: { tabId: tabId },
+        files: ['src/scripts/replace_selection.ts'],
+    });
+
+    await chrome.runtime.sendMessage({ replaceSelection: result });
 }
