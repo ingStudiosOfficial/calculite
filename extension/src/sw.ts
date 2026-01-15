@@ -41,14 +41,3 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
             break;
     }
 });
-
-chrome.notifications.onButtonClicked.addListener(async (notificationId: string, buttonIndex: number) => {
-    console.log('Notification button clicked:', notificationId);
-
-    switch (notificationId) {
-        case 'notify_calc_result':
-            await chrome.sidePanel.open({});
-            await chrome.runtime.sendMessage('open_sidebar');
-            break;
-    }
-});

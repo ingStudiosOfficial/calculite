@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 import '@material/web/iconbutton/icon-button.js';
 import '@material/web/icon/icon.js';
@@ -11,11 +11,8 @@ import ModeSwitcher from '@calculite/shared/src/components/ModeSwitcher.vue';
 import Settings from '@calculite/shared/src/components/Settings.vue';
 
 import { getCalculatorMode, setCalculatorMode, type CalculatorType } from '@calculite/shared/src/utilities/calculator_utils';
-import { recieveOpenSidebar } from './utilities/open_result';
-import { LastCalculated } from './interfaces/Storage';
 
 const currentMode = ref<CalculatorType>();
-const lastCalculated = ref<LastCalculated>();
 
 function switchCalculator(mode: CalculatorType) {
 	setCalculatorMode(mode);
@@ -36,15 +33,13 @@ onMounted(() => {
 	currentMode.value = fetchedMode;
 
 	window.history.replaceState({ mode: fetchedMode }, '', window.location.search);
-
-	recieveOpenSidebar(lastCalculated.value);
 });
 </script>
 
 <template>
 	<div class="content-wrapper" v-if="currentMode">
 		<ModeSwitcher :mode="currentMode" app-type="extension" @mode-change="switchCalculator"></ModeSwitcher>
-		<Calculator class="calculator" v-if="currentMode === 'standard'" :result="lastCalculated?.result" :equation="lastCalculated?.equation"></Calculator>
+		<Calculator class="calculator" v-if="currentMode === 'standard'"></Calculator>
 		<ScientificCalculator class="calculator" v-else-if="currentMode === 'scientific'"></ScientificCalculator>
 		<UnitConverter class="calculator unit-converter" v-else-if="currentMode === 'conversion'"></UnitConverter>
 		<Settings class="calculator" v-else-if="currentMode === 'settings'"></Settings>

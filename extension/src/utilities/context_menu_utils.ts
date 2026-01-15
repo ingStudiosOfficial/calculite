@@ -1,5 +1,4 @@
 import { calculate } from "@calculite/shared/src/utilities/calculator_utils";
-import { LastCalculated } from "src/interfaces/Storage";
 
 export async function calculateSelection(selection: string) {
     console.log('Calculating selection:', selection);
@@ -25,14 +24,7 @@ export async function calculateSelection(selection: string) {
         message: resultToDisplay,
         type: 'basic',
         iconUrl: '/calculite_logo.png',
-        buttons: [
-            {
-                title: 'Open in sidebar',
-            }
-        ],
     });
-
-    await chrome.storage.session.set({ ['last_calculated']: { result: resultToDisplay, equation: selection } as LastCalculated });
 }
 
 function replaceSelection(replacement?: string) {
