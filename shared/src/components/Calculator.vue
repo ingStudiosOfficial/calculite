@@ -22,6 +22,11 @@ const OPERATORS: string[] = [
     "+",
 ];
 
+const props = defineProps({
+   equation: String,
+   result: String, 
+});
+
 const equation = ref<string[]>([]);
 const displayEquation = ref<string[]>([]);
 
@@ -120,6 +125,12 @@ function listenForInput() {
 
 onMounted(() => {
     listenForInput();
+
+    if (props.equation && props.result !== null && props.result !== undefined) {
+        equation.value = props.equation.split(',');
+        displayEquation.value = props.equation.split(',');
+        calculatedResult.value = props.result;
+    }
 });
 </script>
 

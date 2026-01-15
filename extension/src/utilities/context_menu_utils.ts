@@ -1,6 +1,7 @@
 import { calculate } from "@calculite/shared/src/utilities/calculator_utils";
+import { LastCalculated } from "src/interfaces/Storage";
 
-export function calculateSelection(selection: string) {
+export async function calculateSelection(selection: string) {
     console.log('Calculating selection:', selection);
 
     const result = calculate(selection);
@@ -19,7 +20,7 @@ export function calculateSelection(selection: string) {
         resultToDisplay = `${selection} = ${result}`;
     }
 
-    chrome.notifications.create({
+    chrome.notifications.create('notify_calc_result', {
         title: notifTitle,
         message: resultToDisplay,
         type: 'basic',
@@ -30,6 +31,8 @@ export function calculateSelection(selection: string) {
             }
         ],
     });
+
+    await chrome.storage.session.set({ ['last_calculated']: { result: resultToDisplay, equation: selection } as LastCalculated });
 }
 
 function replaceSelection(replacement?: string) {
