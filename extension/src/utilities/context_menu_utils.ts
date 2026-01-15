@@ -32,6 +32,51 @@ export function calculateSelection(selection: string) {
     });
 }
 
+function replaceSelection(replacement?: string) {
+    console.log('Replace selection called.');
+
+    console.log('Result from scope:', replacement);
+
+    if (replacement === null || replacement === undefined) return;
+    
+    const activeElement = document.activeElement;
+
+    if (!activeElement) {
+        console.error('Active element not found.');
+        throw new Error('Active element not found.');
+    }
+
+    console.log('Active element:', activeElement);
+
+    if (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA') {
+        const start = (activeElement as HTMLInputElement).selectionStart;
+        const end = (activeElement as HTMLInputElement).selectionEnd;
+
+        if (start === null || start === undefined || end === null || end === undefined) {
+            console.error('Failed to find start and end.');
+            throw new Error('Failed to find start and end.');
+        }
+
+        (activeElement as HTMLInputElement).setRangeText(replacement.toString(), start, end, 'end');
+
+        activeElement.dispatchEvent(new Event('input', { bubbles: true }));
+    } else {
+        const selection = window.getSelection();
+
+        if (!selection) {
+            console.error('Failed to get selection.');
+            throw new Error('Failed to get selection.');
+        }
+
+        if (selection.rangeCount > 0) {
+            const range = selection.getRangeAt(0);
+            range.deleteContents();
+            range.insertNode(document.createTextNode(replacement.toString()));
+            selection.collapseToEnd();
+        }
+    }
+}
+
 export async function calculateAndReplaceSelection(selection: string, tab: chrome.tabs.Tab) {
     console.log('Calculating selection:', selection);
 
@@ -61,10 +106,15 @@ export async function calculateAndReplaceSelection(selection: string, tab: chrom
         return;
     }
 
-    chrome.scripting.executeScript({
-        target: { tabId: tabId },
-        files: ['src/scripts/replace_selection.ts'],
-    });
+    console.log('Tab ID:', tabId);
 
-    await chrome.runtime.sendMessage({ replaceSelection: result });
+    try {
+        await chrome.scripting.executeScript({
+            target: { tabId: tabId, allFrames: true },
+            args: [result],
+            func: replaceSelection,
+        });
+    } catch (error) {
+        console.error('Error while executing script:', error);
+    }
 }
