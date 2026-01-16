@@ -4,6 +4,13 @@ import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import vueDevTools from 'vite-plugin-vue-devtools';
 import { VitePWA } from 'vite-plugin-pwa';
+import Sitemap from 'vite-plugin-sitemap';
+
+const calculatorModeRoutes = [
+  '/?mode=standard',
+  '/?mode=scientific',
+  '/?mode=conversion',
+];
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -15,6 +22,7 @@ export default defineConfig({
         }
       }
     }),
+    Sitemap({ hostname: 'https://calculite.ingstudios.dev', dynamicRoutes: calculatorModeRoutes, exclude: ['/?mode=settings'], priority: { '/': 1.0, '/*': 0.8 }, changefreq: 'monthly' }),
     VitePWA({
       registerType: 'autoUpdate',
       strategies: 'generateSW',
@@ -138,6 +146,7 @@ export default defineConfig({
         globPatterns: [
           '**/*.{html,css,js,png,svg,ico,json}',
         ],
+        cacheId: 'v2.0.2',
         cleanupOutdatedCaches: true,
         clientsClaim: true,
         skipWaiting: true,
