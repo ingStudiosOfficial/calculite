@@ -39,7 +39,7 @@ const contextMenuParams = ref<ContextMenuParams>({
 });
 
 function addResultToEquation(result: string) {
-    vibrate([10]);
+    vibrate([6]);
     
     emit('emitResult', result);
 }

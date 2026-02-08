@@ -22,9 +22,9 @@ function handleButtonClick() {
     console.log('Button clicked!');
 
     if (props.value === 'CLEAR_ALL' || props.value === 'CALCULATE') {
-        vibrate([10, 50, 10]);
+        vibrate([6, 50, 6]);
     } else {
-        vibrate([10]);
+        vibrate([6]);
     }
 
     emit('button-click', props);

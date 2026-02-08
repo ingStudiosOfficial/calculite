@@ -12,7 +12,7 @@ const props = defineProps({
 const emit = defineEmits(['toggle']);
 
 function toggle() {
-    vibrate([10]);
+    vibrate([6]);
 
     const switchElement: any = document.getElementById('switch-el');
 

@@ -36,7 +36,7 @@ function onClosed() {
 function doAction(actionName: string) {
     console.log("Value:", props.resItem.value);
 
-    vibrate([10]);
+    vibrate([6]);
 
     switch (actionName.toLowerCase()) {
         case 'pin':

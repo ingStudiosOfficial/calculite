@@ -25,7 +25,7 @@ const outputtedNumber = ref<string>("");
 const selectedUnits: Record<ConvertType, Unit | null> = { from: null, to: null };
 
 function selectUnit(selectedUnit: Unit, convertType: ConvertType) {
-    vibrate([10]);
+    vibrate([6]);
 
     if (convertType === "from") updateAvailableTypes(selectedUnit.type);
     

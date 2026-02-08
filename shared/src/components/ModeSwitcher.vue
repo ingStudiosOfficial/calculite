@@ -39,7 +39,7 @@ const modeToIndex: Record<CalculatorType, number> = {
 function switchMode(mode: CalculatorType) {
     console.log('Switching to:', mode);
 
-    vibrate([10]);
+    vibrate([6]);
 
     localMode.value = mode;
 
@@ -55,7 +55,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
 });
 
 async function installAsApp() {
-    vibrate([10]);
+    vibrate([6]);
 
     if (!deferredPrompt) {
         console.log('Install prompt not yet available.');
@@ -81,7 +81,7 @@ function isAppInstalled(): boolean {
 }
 
 function toggleMobileOpen() {
-    vibrate([10]);
+    vibrate([6]);
 
     const menu = document.getElementById('mobile-menu') as any;
 
