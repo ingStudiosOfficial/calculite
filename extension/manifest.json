@@ -17,7 +17,10 @@
     "notifications",
     "scripting",
     "activeTab",
-    "storage"
+    "storage",
+    "omnibox",
+    "offscreen",
+    "clipboardWrite"
   ],
   "host_permissions": [
     "<all_urls>"
@@ -28,5 +31,6 @@
   "background": {
     "service_worker": "src/sw.ts",
     "type": "module"
-  }
+  },
+  "omnibox": { "keyword": "calc" }
 }

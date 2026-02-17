@@ -1,4 +1,5 @@
 import { calculate } from "@calculite/shared/src/utilities/calculator_utils";
+import { RuntimeMessage, RuntimeMessageCopy } from "src/interfaces/RuntimeMessage";
 
 export async function calculateSelection(selection: string) {
     console.log('Calculating selection:', selection);
@@ -86,11 +87,6 @@ export async function calculateAndReplaceSelection(selection: string, tab: chrom
             message: result,
             type: 'basic',
             iconUrl: '/calculite_logo.png',
-            buttons: [
-                {
-                    title: 'Open in sidebar',
-                }
-            ],
         });
         return;
     }
@@ -112,4 +108,80 @@ export async function calculateAndReplaceSelection(selection: string, tab: chrom
     } catch (error) {
         console.error('Error while executing script:', error);
     }
+}
+
+export function suggestCalculateResult(equation: string, suggest: (suggestResults: chrome.omnibox.SuggestResult[]) => void) {
+    console.log('Calculating selection:', equation);
+
+    const result = calculate(equation);
+
+    console.log('Result:', result);
+
+    suggest([
+        {
+            content: result.toString(),
+            description: `${equation} = ${result}`,
+        }
+    ]);
+}
+
+export async function copyCalculateResult(equation: string) {
+    console.log('Calculating selection:', equation);
+
+    const result = calculate(equation);
+
+    console.log('Result:', result);
+
+    if (typeof result !== 'number') {
+        chrome.notifications.create('notify_calc_copied_failure', {
+            title: 'Failed to copy result',
+            message: result,
+            type: 'basic',
+            iconUrl: '/calculite_logo.png',
+        });
+        return;
+    }
+
+    try {
+        await chrome.offscreen.createDocument({
+            url: '/offscreen.html',
+            reasons: ['CLIPBOARD'],
+            justification: 'Copy calculation result from omnibox',
+        });
+    } catch (error) {
+        console.error('Error while creating offscreen document:', error);
+    }
+
+    try {
+        const response: RuntimeMessage = await chrome.runtime.sendMessage({ action: 'copy', result: result.toString() } as RuntimeMessageCopy);
+
+        switch (response.action) {
+            case 'copySuccess':
+                chrome.notifications.create('notify_calc_copied', {
+                    title: `Copied result '${result}'`,
+                    message: `Copied result '${result}' to clipboard`,
+                    type: 'basic',
+                    iconUrl: '/calculite_logo.png',
+                });
+                break;
+            
+            case 'copyFailure':
+                chrome.notifications.create('notify_calc_copied_failure', {
+                    title: 'Failed to copy result',
+                    message: 'An unexpected error occurred while copying to clipboard',
+                    type: 'basic',
+                    iconUrl: '/calculite_logo.png',
+                });
+        }
+    } catch (error) {
+        console.error('An error occurred while sending message:', error);
+        chrome.notifications.create('notify_calc_copied_failure', {
+            title: 'Failed to copy result',
+            message: 'An unexpected error occurred while copying to clipboard',
+            type: 'basic',
+            iconUrl: '/calculite_logo.png',
+        });
+    }
+
+    chrome.offscreen.closeDocument();
 }

@@ -92,12 +92,34 @@ function linearUnit(name: string, type: UnitType, symbol: string, ofbase: number
     };
 }
 
+function replaceOtherOperators(equation: string): string {
+    const operatorMap = {
+        '×': '*',
+        '✕': '*',
+        '⋅': '*',
+        '÷': '/',
+        '−': '-',
+        '–': '-',
+        '—': '-'
+    };
+
+    type OtherOperators = keyof typeof operatorMap;
+
+    const pattern = new RegExp(`[${Object.keys(operatorMap)}]`, 'g');
+
+    const formattedEquation = equation.replace(pattern, match => operatorMap[match as OtherOperators]);
+
+    return formattedEquation;
+}
+
 export function calculate(equation: string[] | string): number | string {
+    equation = replaceOtherOperators(Array.isArray(equation) ? equation.join("") : equation);
+
     let result: RuntimeVal;
 
     try {
         const parser = new Parser();
-        const ast = parser.produceAST(Array.isArray(equation) ? equation.join("") : equation);
+        const ast = parser.produceAST(equation);
         console.log("Produced AST:", ast);
 
         result = evaluate(ast);

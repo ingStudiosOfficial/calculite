@@ -1,4 +1,4 @@
-import { calculateAndReplaceSelection, calculateSelection } from "./utilities/context_menu_utils";
+import { calculateAndReplaceSelection, calculateSelection, copyCalculateResult, suggestCalculateResult } from "./utilities/context_menu_utils";
 
 chrome.runtime.onInstalled.addListener(async () => {
     console.log('Service worker active.');
@@ -21,6 +21,14 @@ function createContextMenus() {
         contexts: ['editable'],
     });
 }
+
+chrome.omnibox.onInputChanged.addListener((text, suggest) => {
+    suggestCalculateResult(text, suggest);
+});
+
+chrome.omnibox.onInputEntered.addListener((text) => {
+    copyCalculateResult(text);
+});
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
     const menuItemId = info.menuItemId.toString();

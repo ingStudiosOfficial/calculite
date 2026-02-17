@@ -16,6 +16,6 @@
     "vue": "^3.5.26"
   },
   "devDependencies": {
-    "chrome-types": "^0.1.409"
+    "chrome-types": "^0.1.415"
   }
 }
