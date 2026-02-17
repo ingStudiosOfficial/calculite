@@ -20,7 +20,8 @@
     "storage",
     "omnibox",
     "offscreen",
-    "clipboardWrite"
+    "clipboardWrite",
+    "declarativeNetRequest"
   ],
   "host_permissions": [
     "<all_urls>"
@@ -32,5 +33,14 @@
     "service_worker": "src/sw.ts",
     "type": "module"
   },
-  "omnibox": { "keyword": "calc" }
+  "omnibox": { "keyword": "calc" },
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "ruleset_1",
+        "enabled": true,
+        "path": "rules.json"
+      }
+    ]
+  }
 }
