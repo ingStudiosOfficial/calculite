@@ -17,14 +17,9 @@
     "notifications",
     "scripting",
     "activeTab",
-    "storage",
     "omnibox",
     "offscreen",
-    "clipboardWrite",
-    "declarativeNetRequest"
-  ],
-  "host_permissions": [
-    "<all_urls>"
+    "clipboardWrite"
   ],
   "action": {
     "default_title": "Click to open Calculite"
@@ -33,14 +28,5 @@
     "service_worker": "src/sw.ts",
     "type": "module"
   },
-  "omnibox": { "keyword": "calc" },
-  "declarative_net_request": {
-    "rule_resources": [
-      {
-        "id": "ruleset_1",
-        "enabled": true,
-        "path": "rules.json"
-      }
-    ]
-  }
+  "omnibox": { "keyword": "calc" }
 }

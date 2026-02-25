@@ -88,6 +88,10 @@ function toggleMobileOpen() {
     menu.open = !menu.open;
 }
 
+function goBack() {
+    window.history.back();
+}
+
 watch(() => props.mode, (newMode) => {
     localMode.value = newMode;
 
@@ -152,8 +156,11 @@ onMounted(() => {
                 <md-icon slot="start">autorenew</md-icon>
             </md-menu-item>
         </md-menu>
-        <md-icon-button class="switcher-button" @click="switchMode('settings')">
+        <md-icon-button v-if="props.mode !== 'settings'" class="switcher-button" @click="switchMode('settings')">
             <md-icon>settings</md-icon>
+        </md-icon-button>
+        <md-icon-button v-else class="switcher-button" @click="goBack()">
+            <md-icon>arrow_back</md-icon>
         </md-icon-button>
         <md-icon-button class="switcher-button" v-if="!hideInstall && props.appType !== 'extension'" @click="installAsApp()">
             <md-icon>install_desktop</md-icon>
