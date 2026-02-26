@@ -51,6 +51,13 @@ function saveHistoryObject() {
 
     saveToHistory(currentHistoryObject.value);
 
+    currentHistoryObject.value = {
+        equation: '',
+        result: 0,
+        note: '',
+        date: Date.now(),
+    }
+
     closeDialog();
 }
 
@@ -85,7 +92,7 @@ watch(() => props.latestOutput, (newValue: number | string) => {
             <div slot="headline">Add to history</div>
             <div slot="content" class="dialog-content">
                 <p class="save-equation">{{ props.equation?.join('') }} = {{ resultToDisplay }}</p>
-                <md-outlined-text-field v-model="currentHistoryObject.note" class="note-field" label="Add a note"></md-outlined-text-field>
+                <md-outlined-text-field v-model="currentHistoryObject.note" class="note-field" label="Add a note" @keydown.enter="saveHistoryObject()"></md-outlined-text-field>
             </div>
             <div slot="actions">
                 <md-filled-tonal-button @click="closeDialog()">Cancel</md-filled-tonal-button>

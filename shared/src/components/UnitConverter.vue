@@ -56,7 +56,7 @@ function convert() {
 </script>
 
 <template>
-    <div class="content-wrapper">
+    <div class="converter-wrapper">
         <div class="unit-container">
             <h1>From</h1>
             <div class="input-group">
@@ -83,7 +83,7 @@ function convert() {
 </template>
 
 <style scoped>
-.content-wrapper {
+.converter-wrapper {
     display: flex;
     flex-direction: row;
     align-items: stretch;

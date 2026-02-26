@@ -6,7 +6,7 @@ import { fetchSettings, toggleStayAwake } from '../utilities/calculator_utils';
 </script>
 
 <template>
-    <div class="content-wrapper">
+    <div class="settings-page-wrapper">
         <h1 class="settings-header">Settings</h1>
         <div class="settings-wrapper">
             <SettingsGroup title="Always stay awake" description="Prevents screen from sleeping when enabled" :enabled="fetchSettings().stayAwake" @toggle="toggleStayAwake"></SettingsGroup>
@@ -16,7 +16,10 @@ import { fetchSettings, toggleStayAwake } from '../utilities/calculator_utils';
 </template>
 
 <style scoped>
-.content-wrapper {
+.settings-page-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
     width: 90vw;
     height: 100%;

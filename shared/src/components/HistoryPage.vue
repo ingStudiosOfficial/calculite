@@ -26,7 +26,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="content-wrapper">
+    <div class="history-page-wrapper">
         <h1 class="history-header">History</h1>
         <md-outlined-text-field v-model="searched" class="history-search" label="Search calculation history">
             <md-icon slot="leading-icon">search</md-icon>
@@ -38,7 +38,10 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.content-wrapper {
+.history-page-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
     width: 90vw;
     height: 100%;
@@ -53,7 +56,6 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    justify-content: flex-start;
     gap: 10px;
     width: 30vw;
 }
