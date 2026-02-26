@@ -154,6 +154,13 @@ function handleButtonClick(props: any) {
 
 function listenForInput() {
     document.addEventListener('keydown', (e) => {
+        const isTextField = e.composedPath().some(el => 
+            (el as HTMLElement).tagName === 'MD-OUTLINED-TEXT-FIELD' || 
+            (el as HTMLElement).tagName === 'INPUT'
+        );
+
+        if (isTextField) return;
+
         if (e.key === 'Tab') {
             return;
         } else if (e.key === 'Enter') {

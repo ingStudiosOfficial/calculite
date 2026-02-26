@@ -1,7 +1,13 @@
 <script setup lang="ts">
 import { type PropType, ref, watch } from 'vue';
+import '@material/web/iconbutton/icon-button.js';
+import '@material/web/icon/icon.js';
+import '@material/web/dialog/dialog.js';
+import '@material/web/textfield/outlined-text-field.js';
+import '@material/web/button/filled-button.js';
+import '@material/web/button/filled-tonal-button.js';
 
-import type { CalculatorType } from '../utilities/calculator_utils';
+import { HistoryObject, saveToHistory, type CalculatorType } from '../utilities/calculator_utils';
 
 const props = defineProps({
     equation: Array,
@@ -19,6 +25,34 @@ const props = defineProps({
 });
 
 const resultToDisplay = ref<string>(props.latestOutput?.toString() || '');
+const dialogVisible = ref<boolean>(false);
+const currentHistoryObject = ref<HistoryObject>({
+    equation: '',
+    result: 0,
+    note: '',
+    date: Date.now(),
+});
+const saveDialog = ref<HTMLDialogElement>();
+
+function closeDialog() {
+    saveDialog.value?.close();
+}
+
+function onDialogClose() {
+    dialogVisible.value = false;
+}
+
+function saveHistoryObject() {
+    if (!currentHistoryObject.value || !props.equation) return;
+
+    currentHistoryObject.value.equation = props.equation.join('');
+    currentHistoryObject.value.result = Number(resultToDisplay.value);
+    currentHistoryObject.value.date = Date.now();
+
+    saveToHistory(currentHistoryObject.value);
+
+    closeDialog();
+}
 
 watch(() => props.latestOutput, (newValue: number | string) => {
     switch (newValue) {
@@ -44,8 +78,22 @@ watch(() => props.latestOutput, (newValue: number | string) => {
 
 <template>
     <div class="output-field">
+        <md-icon-button v-if="resultToDisplay && typeof props.latestOutput === 'number'" class="add-button" @click="dialogVisible = true">
+            <md-icon>library_add</md-icon>
+        </md-icon-button>
+        <md-dialog ref="saveDialog" :open="dialogVisible" @closed="onDialogClose()">
+            <div slot="headline">Add to history</div>
+            <div slot="content" class="dialog-content">
+                <p class="save-equation">{{ props.equation?.join('') }} = {{ resultToDisplay }}</p>
+                <md-outlined-text-field v-model="currentHistoryObject.note" class="note-field" label="Add a note"></md-outlined-text-field>
+            </div>
+            <div slot="actions">
+                <md-filled-tonal-button @click="closeDialog()">Cancel</md-filled-tonal-button>
+                <md-filled-button @click="saveHistoryObject()">Save</md-filled-button>
+            </div>
+        </md-dialog>
         <p class="output" :class="type === 'standard' ? 'standard' : 'scientific'">{{ resultToDisplay }}</p>
-        <p class="equation" :class="type === 'standard' ? 'standard' : 'scientific'">{{ $props.equation?.join("") }}</p>
+        <p class="equation" :class="type === 'standard' ? 'standard' : 'scientific'">{{ $props.equation?.join('') }}</p>
     </div>
 </template>
 
@@ -64,6 +112,7 @@ watch(() => props.latestOutput, (newValue: number | string) => {
     justify-content: center;
     align-items: flex-end; 
     text-align: right;
+    position: relative;
 }
 
 .output,
@@ -82,5 +131,22 @@ watch(() => props.latestOutput, (newValue: number | string) => {
 .equation {
     font-size: 3em;
     min-height: 1.2em;
+}
+
+.add-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.dialog-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 0;
+}
+
+.save-equation {
+    font-size: 1.5rem;
 }
 </style>

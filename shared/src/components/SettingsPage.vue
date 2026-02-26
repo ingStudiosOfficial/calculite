@@ -24,7 +24,7 @@ import { fetchSettings, toggleStayAwake } from '../utilities/calculator_utils';
 }
 
 .settings-header {
-    color: var(--md-sys-color-primary)
+    color: var(--md-sys-color-primary);
 }
 
 .settings-wrapper {

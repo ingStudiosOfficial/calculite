@@ -4,7 +4,7 @@ import { evaluate } from './interpreter';
 import { disableWakeLock, requestWakeLock } from './wakelock';
 import type { RuntimeVal } from './values';
 
-export type CalculatorType = 'standard' | 'scientific' | 'conversion' | 'settings';
+export type CalculatorType = 'standard' | 'scientific' | 'conversion' | 'history' | 'settings';
 export type UnitType = "length" | "area" | "volume" | "temperature";
 
 export interface ResultObject {
@@ -32,6 +32,13 @@ export interface ConvertObject {
 
 export interface Settings {
     stayAwake: boolean;
+}
+
+export interface HistoryObject {
+    equation: string;
+    result: number;
+    note?: string;
+    date: number;
 }
 
 export const LENGTH_UNITS: Unit[] = [
@@ -272,4 +279,15 @@ export function fetchSettings(): Settings {
     const settings: Settings = JSON.parse(fetchedSettings);
 
     return settings;
+}
+
+export function getHistory(): HistoryObject[] {
+    const history: HistoryObject[] = JSON.parse(localStorage.getItem('history') || '[]');
+    return history;
+}
+
+export function saveToHistory(historyObject: HistoryObject) {
+    const currentHistory = getHistory();
+    currentHistory.unshift(historyObject);
+    localStorage.setItem('history', JSON.stringify(currentHistory));
 }

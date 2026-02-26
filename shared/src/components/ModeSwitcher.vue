@@ -33,7 +33,8 @@ const modeToIndex: Record<CalculatorType, number> = {
     'standard': 0,
     'scientific': 1,
     'conversion': 2,
-    'settings': 3,
+    'history': 3,
+    'settings': 4,
 };
 
 function switchMode(mode: CalculatorType) {
@@ -127,6 +128,10 @@ onMounted(() => {
                 <md-icon slot="icon">autorenew</md-icon>
                 Conversion (Beta)
             </md-primary-tab>
+            <md-primary-tab @click="switchMode('history')">
+                <md-icon slot="icon">history</md-icon>
+                History
+            </md-primary-tab>
             <md-primary-tab @click="switchMode('settings')">
                 <md-icon slot="icon">settings</md-icon>
                 Settings
@@ -156,6 +161,12 @@ onMounted(() => {
                 <md-icon slot="start">autorenew</md-icon>
             </md-menu-item>
         </md-menu>
+        <md-icon-button v-if="props.mode !== 'history'" class="switcher-button" @click="switchMode('history')">
+            <md-icon>history</md-icon>
+        </md-icon-button>
+        <md-icon-button v-else class="switcher-button" @click="goBack()">
+            <md-icon>arrow_back</md-icon>
+        </md-icon-button>
         <md-icon-button v-if="props.mode !== 'settings'" class="switcher-button" @click="switchMode('settings')">
             <md-icon>settings</md-icon>
         </md-icon-button>

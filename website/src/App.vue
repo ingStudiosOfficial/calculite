@@ -8,7 +8,8 @@ import Calculator from '@calculite/shared/src/components/Calculator.vue';
 import ScientificCalculator from '@calculite/shared/src/components/ScientificCalculator.vue';
 import UnitConverter from '@calculite/shared/src/components/UnitConverter.vue';
 import ModeSwitcher from '@calculite/shared/src/components/ModeSwitcher.vue';
-import Settings from '@calculite/shared/src/components/Settings.vue';
+import HistoryPage from '@calculite/shared/src/components/HistoryPage.vue';
+import SettingsPage from '@calculite/shared/src/components/SettingsPage.vue';
 
 import { getCalculatorMode, setCalculatorMode, type CalculatorType } from '@calculite/shared/src/utilities/calculator_utils';
 
@@ -42,7 +43,8 @@ onMounted(() => {
 		<Calculator class="calculator" v-if="currentMode === 'standard'"></Calculator>
 		<ScientificCalculator class="calculator" v-else-if="currentMode === 'scientific'"></ScientificCalculator>
 		<UnitConverter class="calculator unit-converter" v-else-if="currentMode === 'conversion'"></UnitConverter>
-		<Settings class="calculator" v-else-if="currentMode === 'settings'"></Settings>
+		<HistoryPage class="calculator" v-else-if="currentMode === 'history'"></HistoryPage>
+		<SettingsPage class="calculator" v-else-if="currentMode === 'settings'"></SettingsPage>
 	</div>
 </template>
 

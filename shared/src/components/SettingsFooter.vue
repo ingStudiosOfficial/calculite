@@ -6,6 +6,7 @@
 <div class="footer-wrapper">
     <a class="footer-link" href="https://github.com/ingStudiosOfficial/calculite" target="blank">GitHub</a>
     <a class="footer-link" href="https://github.com/ingStudiosOfficial/calculite/releases/latest" target="blank">Releases</a>
+    <a class="footer-link" href="https://chromewebstore.google.com/detail/calculite/pafhgocalnhibemiifonjnmddgmoedhc" target="blank">Extension</a>
 </div>
 </template>
 
@@ -24,5 +25,6 @@
 
 .footer-link {
     text-decoration: none;
+    color: var(--md-sys-color-on-primary-container);
 }
 </style>
