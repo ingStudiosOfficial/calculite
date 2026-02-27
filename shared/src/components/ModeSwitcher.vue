@@ -90,6 +90,7 @@ function toggleMobileOpen() {
 }
 
 function goBack() {
+    vibrate([6]);
     window.history.back();
 }
 
