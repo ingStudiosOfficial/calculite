@@ -7,7 +7,7 @@ import '@material/web/textfield/outlined-text-field.js';
 import '@material/web/button/filled-button.js';
 import '@material/web/button/filled-tonal-button.js';
 
-import { HistoryObject, saveToHistory, type CalculatorType } from '../utilities/calculator_utils';
+import { type HistoryObject, saveToHistory, type CalculatorType } from '../utilities/calculator_utils';
 
 const props = defineProps({
     equation: Array,
