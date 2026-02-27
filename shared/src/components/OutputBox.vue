@@ -6,7 +6,7 @@ import '@material/web/dialog/dialog.js';
 import '@material/web/textfield/outlined-text-field.js';
 import '@material/web/button/filled-button.js';
 import '@material/web/button/filled-tonal-button.js';
-
+import { vibrate } from '../utilities/vibrate';
 import { type HistoryObject, saveToHistory, type CalculatorType } from '../utilities/calculator_utils';
 
 const props = defineProps({
@@ -35,6 +35,7 @@ const currentHistoryObject = ref<HistoryObject>({
 const saveDialog = ref<HTMLDialogElement>();
 
 function closeDialog() {
+    vibrate([6]);
     saveDialog.value?.close();
 }
 
@@ -43,6 +44,8 @@ function onDialogClose() {
 }
 
 function saveHistoryObject() {
+    vibrate([6]);
+
     if (!currentHistoryObject.value || !props.equation) return;
 
     currentHistoryObject.value.equation = props.equation.join('');
