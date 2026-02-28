@@ -123,7 +123,7 @@ function convert() {
 }
 
 @media (max-width: 768px) {
-    .content-wrapper {
+    .converter-wrapper {
         display: flex;
         flex-direction: row;
         align-items: stretch;
