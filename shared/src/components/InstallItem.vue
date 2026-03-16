@@ -1,18 +1,24 @@
 <script setup lang="ts">
 import '@material/web/icon/icon.js';
+import { vibrate } from 'src/utilities/vibrate';
 
 interface ComponentProps {
     installName: string;
     installDesc: string;
-    installAction: (params: unknown) => unknown;
+    installAction: () => unknown;
     iconName: string;
 }
 
 const props = defineProps<ComponentProps>();
+
+function callInstallAction() {
+    vibrate([6]);
+    props.installAction();
+}
 </script>
 
 <template>
-    <button class="install-item" @click="props.installAction">
+    <button class="install-item" @click="callInstallAction()">
         <md-ripple></md-ripple>
         <md-focus-ring style="--md-focus-ring-shape: 25px;"></md-focus-ring>
         <md-icon style="--md-icon-size: 35px;">{{ props.iconName }}</md-icon>
@@ -43,6 +49,7 @@ const props = defineProps<ComponentProps>();
     width: 100%;
     box-sizing: border-box;
     padding: 10px;
+    cursor: pointer;
 }
 
 .install-content {
