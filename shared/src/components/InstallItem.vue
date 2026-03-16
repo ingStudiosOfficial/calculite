@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import '@material/web/icon/icon.js';
-import { vibrate } from 'src/utilities/vibrate';
+import { vibrate } from '../utilities/vibrate';
 
 interface ComponentProps {
     installName: string;
