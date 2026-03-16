@@ -3,8 +3,9 @@ import { evaluate } from './interpreter';
 
 import { disableWakeLock, requestWakeLock } from './wakelock';
 import type { RuntimeVal } from './values';
+import { type Theme, themeFromSourceColor, argbFromHex, applyTheme } from '@material/material-color-utilities';
 
-export type CalculatorType = 'standard' | 'scientific' | 'conversion' | 'history' | 'settings';
+export type CalculatorType = 'standard' | 'scientific' | 'conversion' | 'history' | 'settings' | 'install';
 export type UnitType = "length" | "area" | "volume" | "temperature";
 
 export interface ResultObject {
@@ -32,6 +33,7 @@ export interface ConvertObject {
 
 export interface Settings {
     stayAwake: boolean;
+    theme: string;
 }
 
 export interface HistoryObject {
@@ -266,17 +268,19 @@ export function fetchSettings(): Settings {
 
     console.log(fetchedSettings);
 
-    if (!fetchedSettings) {
+    const settings: Settings = JSON.parse(fetchedSettings || '');
+
+    if (!fetchedSettings || settings.stayAwake === undefined || settings.theme === undefined) {
         localStorage.setItem('settings', JSON.stringify({
             stayAwake: false,
-        }));
+            theme: '#006a60',
+        } as Settings));
 
         return {
             stayAwake: false,
+            theme: '#006a60',
         };
     }
-
-    const settings: Settings = JSON.parse(fetchedSettings);
 
     return settings;
 }
@@ -290,4 +294,23 @@ export function saveToHistory(historyObject: HistoryObject) {
     const currentHistory = getHistory();
     currentHistory.unshift(historyObject);
     localStorage.setItem('history', JSON.stringify(currentHistory));
+}
+
+export function setDocumentTheme(inputSeed: string) {
+    console.log('Input seed:', inputSeed);
+    const theme = themeFromSourceColor(argbFromHex(inputSeed));
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    applyTheme(theme, { target: document.body, dark: systemDark });
+}
+
+export function getTheme(): string {
+    const seed: string = fetchSettings().theme;
+    return seed;
+}
+
+export function setTheme(inputSeed: string) {
+    setDocumentTheme(inputSeed);
+    const settings = fetchSettings();
+    settings.theme = inputSeed;
+    localStorage.setItem('settings', JSON.stringify(settings));
 }

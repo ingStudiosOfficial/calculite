@@ -43,7 +43,7 @@ onMounted(() => {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    width: 90vw;
+    width: 90svw;
     height: 100%;
     background-color: transparent;
 }
@@ -57,14 +57,14 @@ onMounted(() => {
     flex-direction: column;
     align-items: stretch;
     gap: 10px;
-    width: 30vw;
+    width: 30svw;
 }
 
 .footer {
     width: 30vw;
     position: fixed;
     bottom: 25px;
-    left: 50vw;
+    left: 50svw;
     transform: translate(-50%, -50%);
 }
 
@@ -75,11 +75,11 @@ onMounted(() => {
 
 @media (max-width: 768px) {
     .history-wrapper {
-        width: 70vw;
+        width: 70svw;
     }
 
     .footer {
-        width: 70vw;
+        width: 70svw;
     }
 }
 </style>

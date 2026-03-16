@@ -1,6 +1,6 @@
 import { fileURLToPath, URL } from 'node:url';
 
-import { defineConfig } from 'vite';
+import { defineConfig, PluginOption } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import vueDevTools from 'vite-plugin-vue-devtools';
 import { VitePWA } from 'vite-plugin-pwa';
@@ -21,7 +21,7 @@ export default defineConfig({
           isCustomElement: (tag) => tag.startsWith('md-')
         }
       }
-    }),
+    }) as PluginOption,
     Sitemap({ hostname: 'https://calculite.ingstudios.dev', dynamicRoutes: calculatorModeRoutes, exclude: ['/?mode=settings'], priority: { '/': 1.0, '/*': 0.8 }, changefreq: 'monthly' }),
     VitePWA({
       registerType: 'autoUpdate',

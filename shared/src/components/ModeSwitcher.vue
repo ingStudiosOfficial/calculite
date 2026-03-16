@@ -10,6 +10,7 @@ import '@material/web/iconbutton/icon-button.js';
 
 import { getCalculatorMode, type CalculatorType } from '../utilities/calculator_utils';
 import { vibrate } from '../utilities/vibrate';
+import { MdTabs } from '@material/web/tabs/tabs.js';
 
 type AppType = 'website' | 'extension';
 
@@ -18,23 +19,19 @@ interface ComponentProps {
     appType: AppType;
 }
 
-interface MdTabPartial {
-    activeTabIndex: number;
-}
-
 const props = defineProps<ComponentProps>();
 
 const emit = defineEmits(['mode-change']);
 
 const localMode = ref<CalculatorType>();
-const hideInstall = ref<boolean>(false);
-const tabsRef = ref<MdTabPartial>();
+const tabsRef = ref<MdTabs>();
 const modeToIndex: Record<CalculatorType, number> = {
     'standard': 0,
     'scientific': 1,
     'conversion': 2,
     'history': 3,
     'settings': 4,
+    'install': 5,
 };
 
 function switchMode(mode: CalculatorType) {
@@ -45,40 +42,6 @@ function switchMode(mode: CalculatorType) {
     localMode.value = mode;
 
     emit('mode-change', mode);
-}
-
-let deferredPrompt: any;
-
-window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-
-    deferredPrompt = e;
-});
-
-async function installAsApp() {
-    vibrate([6]);
-
-    if (!deferredPrompt) {
-        console.log('Install prompt not yet available.');
-        alert("You can't install Calculite as an app right now.");
-        return;
-    }
-
-    deferredPrompt?.prompt();
-
-    const { outcome } = await deferredPrompt.userChoice;
-    console.log('User response to install prompt:', outcome);
-
-    deferredPrompt = null;
-
-    if (outcome === 'accepted') {
-        hideInstall.value = true;
-    }
-}
-
-function isAppInstalled(): boolean {
-    return window.matchMedia('(display-mode: standalone)').matches 
-        || (window.navigator as any).standalone === true;
 }
 
 function toggleMobileOpen() {
@@ -102,9 +65,7 @@ watch(() => props.mode, (newMode) => {
     }
 }, { immediate: true });
 
-onMounted(() => {
-    hideInstall.value = isAppInstalled();
-    
+onMounted(() => {    
     const currentMode = getCalculatorMode();
     localMode.value = currentMode;
 
@@ -137,7 +98,7 @@ onMounted(() => {
                 <md-icon slot="icon">settings</md-icon>
                 Settings
             </md-primary-tab>
-            <md-primary-tab v-if="!hideInstall && props.appType !== 'extension'" @click="installAsApp()">
+            <md-primary-tab v-if="props.appType !== 'extension'" @click="switchMode('install')">
                 <md-icon slot="icon">install_desktop</md-icon>
                 Install
             </md-primary-tab>
@@ -174,7 +135,7 @@ onMounted(() => {
         <md-icon-button v-else class="switcher-button" @click="goBack()">
             <md-icon>arrow_back</md-icon>
         </md-icon-button>
-        <md-icon-button class="switcher-button" v-if="!hideInstall && props.appType !== 'extension'" @click="installAsApp()">
+        <md-icon-button class="switcher-button" v-if="props.appType !== 'extension'" @click="switchMode('install')">
             <md-icon>install_desktop</md-icon>
         </md-icon-button>
     </div>

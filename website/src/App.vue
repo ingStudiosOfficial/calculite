@@ -10,6 +10,7 @@ import UnitConverter from '@calculite/shared/src/components/UnitConverter.vue';
 import ModeSwitcher from '@calculite/shared/src/components/ModeSwitcher.vue';
 import HistoryPage from '@calculite/shared/src/components/HistoryPage.vue';
 import SettingsPage from '@calculite/shared/src/components/SettingsPage.vue';
+import InstallPage from '@calculite/shared/src/components/InstallPage.vue';
 
 import { getCalculatorMode, setCalculatorMode, type CalculatorType } from '@calculite/shared/src/utilities/calculator_utils';
 
@@ -45,6 +46,7 @@ onMounted(() => {
 		<UnitConverter class="calculator unit-converter" v-else-if="currentMode === 'conversion'"></UnitConverter>
 		<HistoryPage class="calculator" v-else-if="currentMode === 'history'"></HistoryPage>
 		<SettingsPage class="calculator" v-else-if="currentMode === 'settings'"></SettingsPage>
+		<InstallPage class="calculator" v-else-if="currentMode === 'install'"></InstallPage>
 	</div>
 </template>
 

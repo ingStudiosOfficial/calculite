@@ -1,12 +1,16 @@
 import { createApp } from 'vue';
 import App from './App.vue';
 import '@calculite/shared/src/assets/main.css';
-import { fetchSettings } from '@calculite/shared/src/utilities/calculator_utils';
+import { fetchSettings, setDocumentTheme } from '@calculite/shared/src/utilities/calculator_utils';
 import { requestWakeLock, wakeLockListener } from '@calculite/shared/src/utilities/wakelock';
 
-if (fetchSettings().stayAwake === true) {
+const settings = fetchSettings();
+
+if (settings.stayAwake === true) {
     requestWakeLock();
 }
+
+setDocumentTheme(settings.theme);
 
 wakeLockListener();
 

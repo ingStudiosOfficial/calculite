@@ -62,7 +62,9 @@ switch (props.color) {
 
 <style scoped>
 .number-button {
-    all: unset;
+    outline: none;
+    border: none;
+    font-family: var(--md-ref-typeface-plain);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -75,6 +77,7 @@ switch (props.color) {
     touch-action: manipulation;
     -webkit-user-select: none;
     -webkit-touch-callout: none;
+    box-sizing: border-box;
 }
 
 .number-button.standard {

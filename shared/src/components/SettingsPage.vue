@@ -1,15 +1,16 @@
 <script setup lang="ts">
-import SettingsGroup from './SettingsGroup.vue';
+import SettingsGroupSwitch from './SettingsGroupSwitch.vue';
 import SettingsFooter from './SettingsFooter.vue';
-
-import { fetchSettings, toggleStayAwake } from '../utilities/calculator_utils';
+import SettingsGroupColor from './SettingsGroupColor.vue';
+import { fetchSettings, getTheme, setTheme, toggleStayAwake } from '../utilities/calculator_utils';
 </script>
 
 <template>
     <div class="settings-page-wrapper">
         <h1 class="settings-header">Settings</h1>
         <div class="settings-wrapper">
-            <SettingsGroup title="Always stay awake" description="Prevents screen from sleeping when enabled" :enabled="fetchSettings().stayAwake" @toggle="toggleStayAwake"></SettingsGroup>
+            <SettingsGroupSwitch title="Always stay awake" description="Prevents screen from sleeping when enabled" :enabled="fetchSettings().stayAwake" @toggle="toggleStayAwake"></SettingsGroupSwitch>
+            <SettingsGroupColor title="Theme" description="Changes the theme" :default-color="getTheme()" @color-change="setTheme"></SettingsGroupColor>
         </div>
         <SettingsFooter class="footer"></SettingsFooter>
     </div>
@@ -36,24 +37,24 @@ import { fetchSettings, toggleStayAwake } from '../utilities/calculator_utils';
     align-items: stretch;
     justify-content: flex-start;
     gap: 10px;
-    width: 30vw;
+    width: 30svw;
 }
 
 .footer {
-    width: 30vw;
+    width: 30svw;
     position: fixed;
     bottom: 25px;
-    left: 50vw;
+    left: 50svw;
     transform: translate(-50%, -50%);
 }
 
 @media (max-width: 768px) {
     .settings-wrapper {
-        width: 70vw;
+        width: 70svw;
     }
 
     .footer {
-        width: 70vw;
+        width: 70svw;
     }
 }
 </style>
