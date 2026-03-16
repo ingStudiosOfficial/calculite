@@ -64,6 +64,11 @@ function saveHistoryObject() {
     closeDialog();
 }
 
+function openHistoryDialog() {
+    vibrate([6]);
+    dialogVisible.value = true;
+}
+
 watch(() => props.latestOutput, (newValue: number | string) => {
     switch (newValue) {
         case 67:
@@ -88,7 +93,7 @@ watch(() => props.latestOutput, (newValue: number | string) => {
 
 <template>
     <div class="output-field">
-        <md-icon-button v-if="resultToDisplay && typeof props.latestOutput === 'number'" class="add-button" @click="dialogVisible = true">
+        <md-icon-button v-if="resultToDisplay && typeof props.latestOutput === 'number'" class="add-button" @click="openHistoryDialog()">
             <md-icon>library_add</md-icon>
         </md-icon-button>
         <md-dialog ref="saveDialog" :open="dialogVisible" @closed="onDialogClose()">

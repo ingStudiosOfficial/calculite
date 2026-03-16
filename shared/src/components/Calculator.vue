@@ -114,6 +114,10 @@ function listenForInput() {
         } else if (e.key === '(' || e.key === ')') {
             equation.value.push(e.key);
             displayEquation.value.push(e.key);
+        } else if (e.key === '%') {
+            console.log('Key is %.');
+            equation.value.push('/100');
+            displayEquation.value.push(e.key);
         } else if (OPERATORS.includes(e.key)) {
             equation.value.push(e.key);
             displayEquation.value.push(` ${e.key} `);

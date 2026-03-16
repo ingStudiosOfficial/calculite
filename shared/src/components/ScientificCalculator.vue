@@ -161,6 +161,8 @@ function listenForInput() {
 
         if (isTextField) return;
 
+        console.log(e.key);
+
         if (e.key === 'Tab') {
             return;
         } else if (e.key === 'Enter') {
@@ -178,6 +180,10 @@ function listenForInput() {
         } else if (e.key === '(' || e.key === ')') {
             equation.value.push(e.key);
             displayEquation.value.push(e.key);
+        } else if (e.key === '%') {
+            console.log('Key is %.');
+            equation.value.push('/100');
+            displayEquation.value.push(e.key);
         } else if (OPERATORS.includes(e.key)) {
             if (e.key === "^") {
                 equation.value.push("**");
@@ -188,9 +194,6 @@ function listenForInput() {
         } else if (e.key === ',') {
             equation.value.push(e.key);
             displayEquation.value.push(`${e.key} `);
-        } else if (e.key === '%') {
-            equation.value.push(e.key);
-            displayEquation.value.push(e.key);
         } else if (e.key === ".") {
             equation.value.push(e.key);
             displayEquation.value.push(e.key);
