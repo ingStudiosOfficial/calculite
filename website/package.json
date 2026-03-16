@@ -1,6 +1,6 @@
 {
   "name": "calculite",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "private": true,
   "type": "module",
   "engines": {
@@ -17,7 +17,7 @@
     "deploy": "gh-pages -d dist --dotfiles"
   },
   "dependencies": {
-    "@calculite/shared": "^1.0.0",
+    "@calculite/shared": "^2.0.5",
     "@material/web": "^2.4.1",
     "vue": "^3.5.22"
   },

@@ -1,6 +1,6 @@
 {
   "name": "@calculite/extension",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "main": "index.js",
   "scripts": {
     "dev": "vite",
@@ -11,11 +11,12 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@calculite/shared": "^1.0.0",
+    "@calculite/shared": "^2.0.5",
     "@material/web": "^2.4.1",
     "vue": "^3.5.26"
   },
   "devDependencies": {
-    "chrome-types": "^0.1.415"
+    "chrome-types": "^0.1.415",
+    "vite-plugin-web-extension": "^4.5.0"
   }
 }
