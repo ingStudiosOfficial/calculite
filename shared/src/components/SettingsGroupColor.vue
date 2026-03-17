@@ -2,6 +2,7 @@
 import '@material/web/switch/switch.js';
 import { vibrate } from '../utilities/vibrate';
 import { ref } from 'vue';
+import '@material/web/button/outlined-button.js';
 
 interface ComponentProps {
     title: string;
@@ -11,7 +12,7 @@ interface ComponentProps {
 
 const props = defineProps<ComponentProps>();
 
-const emit = defineEmits(['colorChange']);
+const emit = defineEmits(['colorChange', 'reset']);
 const seedColor = ref<string>(props.defaultColor);
 
 function onColorChange() {
@@ -26,7 +27,10 @@ function onColorChange() {
             <p class="title">{{ props.title }}</p>
             <p class="description">{{ props.description }}</p>
         </div>
-        <input v-model="seedColor" type="color" @input="onColorChange()" />
+        <div class="right">
+            <input v-model="seedColor" type="color" @input="onColorChange()" />
+            <md-outlined-button @click="emit('reset')">Reset</md-outlined-button>
+        </div>
     </div>
 </template>
 
@@ -54,5 +58,14 @@ function onColorChange() {
 
 .left {
     text-align: left;
+}
+
+.right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: right;
+    text-align: right;
+    gap: 10px;
 }
 </style>

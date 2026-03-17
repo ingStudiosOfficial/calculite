@@ -268,21 +268,22 @@ export function fetchSettings(): Settings {
 
     console.log(fetchedSettings);
 
-    const settings: Settings = JSON.parse(fetchedSettings || '');
+    const settings: Partial<Settings> = JSON.parse(fetchedSettings || '{}');
 
-    if (!fetchedSettings || settings.stayAwake === undefined || settings.theme === undefined) {
-        localStorage.setItem('settings', JSON.stringify({
-            stayAwake: false,
-            theme: '#006a60',
-        } as Settings));
+    const defaultSettings: Settings = {
+        stayAwake: false,
+        theme: '#006a60',
+    };
 
-        return {
-            stayAwake: false,
-            theme: '#006a60',
-        };
+    if (!fetchedSettings) {
+        localStorage.setItem('settings', JSON.stringify(defaultSettings));
+
+        return defaultSettings;
     }
 
-    return settings;
+    Object.assign(settings, { ...defaultSettings, ...settings });
+
+    return settings as Settings;
 }
 
 export function getHistory(): HistoryObject[] {

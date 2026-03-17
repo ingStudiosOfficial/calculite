@@ -3,6 +3,10 @@ import SettingsGroupSwitch from './SettingsGroupSwitch.vue';
 import SettingsFooter from './SettingsFooter.vue';
 import SettingsGroupColor from './SettingsGroupColor.vue';
 import { fetchSettings, getTheme, setTheme, toggleStayAwake } from '../utilities/calculator_utils';
+
+function resetTheme() {
+    setTheme('#006a60');
+}
 </script>
 
 <template>
@@ -10,7 +14,7 @@ import { fetchSettings, getTheme, setTheme, toggleStayAwake } from '../utilities
         <h1 class="settings-header">Settings</h1>
         <div class="settings-wrapper">
             <SettingsGroupSwitch title="Always stay awake" description="Prevents screen from sleeping when enabled" :enabled="fetchSettings().stayAwake" @toggle="toggleStayAwake"></SettingsGroupSwitch>
-            <SettingsGroupColor title="Theme" description="Changes the theme" :default-color="getTheme()" @color-change="setTheme"></SettingsGroupColor>
+            <SettingsGroupColor title="Theme" description="Changes the theme" :default-color="getTheme()" @color-change="setTheme" @reset="resetTheme()"></SettingsGroupColor>
         </div>
         <SettingsFooter class="footer"></SettingsFooter>
     </div>
