@@ -11,7 +11,7 @@ function openExtension() {
     <div class="install-page-wrapper">
         <h1 class="install-header">Install</h1>
         <div class="install-options">
-            <InstallItem install-name="PWA" install-desc="Install Calculite as a Progressive Web App to get shortcuts and more features" :install-action="installAsApp" icon-name="install_desktop""></InstallItem>
+            <InstallItem install-name="PWA" install-desc="Install Calculite as a Progressive Web App to get shortcuts and more features" :install-action="installAsApp" icon-name="install_desktop"></InstallItem>
             <InstallItem install-name="Chrome Extension" install-desc="Add Calculite to your browser as an Extension to get quick sidebar access, context menus and more" :install-action="openExtension" icon-name="extension"></InstallItem>
         </div>
     </div>
